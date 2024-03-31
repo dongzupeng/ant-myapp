@@ -1,15 +1,15 @@
 import React, { Suspense} from 'react';
 import { Skeleton } from "antd";
 
-const Login = React.lazy(() => import('../pages/Login'));
-const Layout = React.lazy(() => import('../pages/Layout'));
+const Login = React.lazy(() => import('@/pages/Login'));
+const Home = React.lazy(() => import("@/pages/Home"));
 
 const routes = [
   {
-    path: "/",
+    path: "/home",
     element: (
       <Suspense fallback={<Skeleton />}>
-        <Layout />
+        <Home />
       </Suspense>
     ),
   },

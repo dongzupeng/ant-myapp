@@ -4,6 +4,7 @@ import './assets/style/reset.css'
 import { RouterProvider } from 'react-router-dom';
 import router from './router';
 import App from './App'
+import './assets/style/theme.less'
 
 
 

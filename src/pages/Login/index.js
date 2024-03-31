@@ -1,276 +1,75 @@
-import {
-  AlipayOutlined,
-  LockOutlined,
-  MobileOutlined,
-  TaobaoOutlined,
-  UserOutlined,
-  WeiboOutlined,
-  GithubOutlined 
-} from '@ant-design/icons';
-import {
-  LoginFormPage,
-  ProConfigProvider,
-  ProFormCaptcha,
-  ProFormCheckbox,
-  ProFormText,
-} from '@ant-design/pro-components';
-import { Button, Divider, Space, Tabs, message, theme } from 'antd';
-import { useState } from 'react';
+import React from "react";
+import { Form, Input, Button, Checkbox, Typography, message } from "antd";
+import { useNavigate } from "react-router-dom";
+import { UserOutlined, LockOutlined } from "@ant-design/icons";
+import "./index.less";
 
-const iconStyles = {
-  color: 'rgba(0, 0, 0, 0.2)',
-  fontSize: '18px',
-  verticalAlign: 'middle',
-  cursor: 'pointer',
-};
+const { Title } = Typography;
 
-const Page = () => {
-  const [loginType, setLoginType] = useState('phone');
-  const { token } = theme.useToken();
+const LoginPage = () => {
+  const navigate = useNavigate();
+  const onFinish = (values) => {
+    console.log("Received values:", values);
+    const { username, password} =  values;
+    if(username === 'admin' && password === '123123') {
+      navigate('/home')
+      message.success('登录成功，欢迎回来！')
+    } else {
+      message.error("请输入正确的用户名密码");
+    }
+  };
+
   return (
-    <div
-      style={{
-        backgroundColor: "white",
-        height: "100vh",
-      }}
-    >
-      <LoginFormPage
-        backgroundImageUrl="https://pic.netbian.com/uploads/allimg/210316/231107-16159074679442.jpg"
-        logo="https://github.com/fluidicon.png"
-        backgroundVideoUrl=""
-        title="Github"
-        containerStyle={{
-          backgroundColor: "rgba(0, 0, 0,0.65)",
-          backdropFilter: "blur(4px)",
-        }}
-        subTitle="React构建web应用"
-        activityConfig={{
-          style: {
-            boxShadow: "0px 0px 8px rgba(0, 0, 0, 0.2)",
-            color: token.colorTextHeading,
-            borderRadius: 8,
-            backgroundColor: "rgba(255,255,255,0.25)",
-            backdropFilter: "blur(4px)",
-          },
-          title: "欢迎访问！",
-          subTitle: "",
-          action: (
-            <div>
-              <GithubOutlined style={{ color: "#000000" }} />
-              <span style={{ cursor: "pointer", color: "#1668dc" }}>
-                GitHub地址
-              </span>
-            </div>
-          ),
-        }}
-        actions={
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              flexDirection: "column",
-            }}
-          >
-            <Divider plain>
-              <span
-                style={{
-                  color: token.colorTextPlaceholder,
-                  fontWeight: "normal",
-                  fontSize: 14,
-                }}
-              >
-                其他登录方式
-              </span>
-            </Divider>
-            <Space align="center" size={24}>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  flexDirection: "column",
-                  height: 40,
-                  width: 40,
-                  border: "1px solid " + token.colorPrimaryBorder,
-                  borderRadius: "50%",
-                }}
-              >
-                <AlipayOutlined style={{ ...iconStyles, color: "#1677FF" }} />
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  flexDirection: "column",
-                  height: 40,
-                  width: 40,
-                  border: "1px solid " + token.colorPrimaryBorder,
-                  borderRadius: "50%",
-                }}
-              >
-                <TaobaoOutlined style={{ ...iconStyles, color: "#FF6A10" }} />
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  flexDirection: "column",
-                  height: 40,
-                  width: 40,
-                  border: "1px solid " + token.colorPrimaryBorder,
-                  borderRadius: "50%",
-                }}
-              >
-                <WeiboOutlined style={{ ...iconStyles, color: "#1890ff" }} />
-              </div>
-            </Space>
-          </div>
-        }
+    <div className="loginForm">
+      <div
+      className="loginBox"
       >
-        <Tabs
-          centered
-          activeKey={loginType}
-          onChange={(activeKey) => setLoginType(activeKey)}
+        <Title level={2} style={{ textAlign: "center", marginBottom: 24 }}>
+          登录
+        </Title>
+        <Form
+          name="normal_login"
+          initialValues={{ remember: true }}
+          onFinish={onFinish}
         >
-          <Tabs.TabPane key={"account"} tab={"账号密码登录"} />
-          <Tabs.TabPane key={"phone"} tab={"手机号登录"} />
-        </Tabs>
-        {loginType === "account" && (
-          <>
-            <ProFormText
-              name="username"
-              fieldProps={{
-                size: "large",
-                prefix: (
-                  <UserOutlined
-                    style={{
-                      color: token.colorText,
-                    }}
-                    className={"prefixIcon"}
-                  />
-                ),
-              }}
-              placeholder={"用户名: admin or user"}
-              rules={[
-                {
-                  required: true,
-                  message: "请输入用户名!",
-                },
-              ]}
-            />
-            <ProFormText.Password
-              name="password"
-              fieldProps={{
-                size: "large",
-                prefix: (
-                  <LockOutlined
-                    style={{
-                      color: token.colorText,
-                    }}
-                    className={"prefixIcon"}
-                  />
-                ),
-              }}
-              placeholder={"密码: ant.design"}
-              rules={[
-                {
-                  required: true,
-                  message: "请输入密码！",
-                },
-              ]}
-            />
-          </>
-        )}
-        {loginType === "phone" && (
-          <>
-            <ProFormText
-              fieldProps={{
-                size: "large",
-                prefix: (
-                  <MobileOutlined
-                    style={{
-                      color: token.colorText,
-                    }}
-                    className={"prefixIcon"}
-                  />
-                ),
-              }}
-              name="mobile"
-              placeholder={"手机号"}
-              rules={[
-                {
-                  required: true,
-                  message: "请输入手机号！",
-                },
-                {
-                  pattern: /^1\d{10}$/,
-                  message: "手机号格式错误！",
-                },
-              ]}
-            />
-            <ProFormCaptcha
-              fieldProps={{
-                size: "large",
-                prefix: (
-                  <LockOutlined
-                    style={{
-                      color: token.colorText,
-                    }}
-                    className={"prefixIcon"}
-                  />
-                ),
-              }}
-              captchaProps={{
-                size: "large",
-              }}
-              placeholder={"请输入验证码"}
-              captchaTextRender={(timing, count) => {
-                if (timing) {
-                  return `${count} ${"获取验证码"}`;
-                }
-                return "获取验证码";
-              }}
-              name="captcha"
-              rules={[
-                {
-                  required: true,
-                  message: "请输入验证码！",
-                },
-              ]}
-              onGetCaptcha={async () => {
-                message.success("获取验证码成功！验证码为：1234");
-              }}
-            />
-          </>
-        )}
-        <div
-          style={{
-            marginBlockEnd: 24,
-          }}
-        >
-          <ProFormCheckbox noStyle name="autoLogin">
-            自动登录
-          </ProFormCheckbox>
-          <a
-            style={{
-              float: "right",
-            }}
+          <Form.Item
+            name="username"
+            rules={[{ required: true, message: "请输入用户名!" }]}
           >
-            忘记密码
-          </a>
-        </div>
-      </LoginFormPage>
+            <Input
+              prefix={<UserOutlined className="site-form-item-icon" />}
+              placeholder="用户名/admin"
+            />
+          </Form.Item>
+          <Form.Item
+            name="password"
+            rules={[{ required: true, message: "请输入密码!" }]}
+          >
+            <Input
+              prefix={<LockOutlined className="site-form-item-icon" />}
+              type="password"
+              placeholder="密码/123123"
+            />
+          </Form.Item>
+          <Form.Item>
+            <Form.Item name="remember" valuePropName="checked" noStyle>
+              <Checkbox>记住我</Checkbox>
+            </Form.Item>
+            <a className="login-form-forgot" href="/forgot-password">
+              忘记密码
+            </a>
+          </Form.Item>
+
+          <Form.Item>
+            <Button type="primary" htmlType="submit" style={{ width: "100%" }}>
+              登录
+            </Button>
+            或 <a href="/register">立即注册</a>
+          </Form.Item>
+        </Form>
+      </div>
     </div>
   );
 };
 
-export default () => {
-  return (
-    <ProConfigProvider dark>
-      <Page />
-    </ProConfigProvider>
-  );
-};
+export default LoginPage;

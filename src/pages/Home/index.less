@@ -1,0 +1,43 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #dfe4e8;
+    /* 让容器至少占满一屏高度 */
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+    .avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+    
+}
+.header,
+.footer {
+    background-color: #16dbed;
+    color: white;
+    padding: 20px;
+}
+
+.content {
+    display: flex;
+    flex: 1;
+    /* 让内容区域自动填充剩余空间 */
+}
+
+.sidebar {
+    background-color: #f0f0f0;
+    flex-basis: 250px;
+    /* 定义侧边栏宽度 */
+    padding: 20px;
+}
+
+.main-content {
+    flex: 1;
+    /* 自动填充剩余空间 */
+    padding: 20px;
+}
