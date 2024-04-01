@@ -12,7 +12,7 @@ const LoginPage = () => {
     console.log("Received values:", values);
     const { username, password} =  values;
     if(username === 'admin' && password === '123123') {
-      navigate('/home')
+      navigate('/')
       message.success('登录成功，欢迎回来！')
     } else {
       message.error("请输入正确的用户名密码");

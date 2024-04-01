@@ -1,3 +1,23 @@
+/* 打印效果 */
+@keyframes typing {
+    from {
+        width: 50px;
+    }
+    to {
+        width: 200px;
+    }
+}
+
+/* 光标 */
+@keyframes blink-caret {
+    from,
+    to {
+        border-color: transparent;
+    }
+    50% {
+        border-color: currentColor;
+    }
+}
 .container {
     display: flex;
     flex-direction: column;
@@ -5,20 +25,37 @@
     background-color: #dfe4e8;
     /* 让容器至少占满一屏高度 */
 }
+
 .header {
     display: flex;
     justify-content: space-between;
+
+    .text {
+        color: white;
+        font-size: 20px;
+        width: 200px;
+        height: 1.5em;
+        border-right: 1px solid transparent;
+        animation: typing 2s steps(42, end), blink-caret .75s step-end infinite;
+        font-family: Consolas, Monaco;
+        word-break: break-all;
+        overflow: hidden;
+
+    }
+
     .avatar {
         width: 50px;
         height: 50px;
         border-radius: 50%;
         cursor: pointer;
     }
-    
+
 }
+
 .header,
 .footer {
-    background-color: #16dbed;
+    text-align: center;
+    background-color: #6f91ee;
     color: white;
     padding: 20px;
 }

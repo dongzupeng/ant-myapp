@@ -3,7 +3,7 @@ import { Dropdown, message, Space, Modal } from "antd";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import "./index.less"; 
-import imgUrl from "@/assets/images/bg.jpg"
+import imgUrl from "@/assets/images/avatar.jpg";
 
 
 const items = [
@@ -39,7 +39,7 @@ function App() {
   return (
     <div className="container">
       <header className="header">
-        <div>Header</div>
+        <div className="text">头文字D的秘密花园</div>
         <Dropdown menu={{ items, onClick }} placement="bottom" arrow>
           <img className="avatar" src={imgUrl} alt="" />
         </Dropdown>
@@ -48,7 +48,9 @@ function App() {
         <nav className="sidebar">Sidebar</nav>
         <main className="main-content">Main Content</main>
       </div>
-      <footer className="footer">Footer</footer>
+      <footer className="footer">
+        头文字D的秘密花园 ©{new Date().getFullYear()} Created by 头文字D
+      </footer>
     </div>
   );
 }
