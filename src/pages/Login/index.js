@@ -21,9 +21,8 @@ const LoginPage = () => {
 
   return (
     <div className="loginForm">
-      <div
-      className="loginBox"
-      >
+      <span className="pageText">头文字D的秘密花园</span>
+      <div className="loginBox">
         <Title level={2} style={{ textAlign: "center", marginBottom: 24 }}>
           登录
         </Title>

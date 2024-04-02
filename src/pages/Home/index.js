@@ -4,6 +4,7 @@ import { ExclamationCircleOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import "./index.less"; 
 import imgUrl from "@/assets/images/avatar.jpg";
+import Sidebar from '@/components/Sidebar';
 
 
 const items = [
@@ -19,6 +20,12 @@ function App() {
       confirm();
     }
   };
+  const links = [
+    { url: "/about", text: "About" },
+    { url: "/contact", text: "Contact" },
+    { url: "/message", text: "Message" },
+    { url: "/center", text: "Center" },
+  ];
   // 退出登录
   const confirm = () => {
     Modal.confirm({
@@ -45,7 +52,10 @@ function App() {
         </Dropdown>
       </header>
       <div className="content">
-        <nav className="sidebar">Sidebar</nav>
+        <nav className="sidebar">
+          {/* 侧边栏组件 */}
+          <Sidebar links={links}></Sidebar>
+        </nav>
         <main className="main-content">Main Content</main>
       </div>
       <footer className="footer">
