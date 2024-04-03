@@ -1,21 +1,21 @@
-import React, { useState } from "react";
-import "./Sidebar.less";
+import React, { useState } from 'react';
+import './Sidebar.less';
 
 const Sidebar = ({ links }) => {
-  const [activeItem, setActiveItem] = useState("About");
+  const [activeItem, setActiveItem] = useState('About');
 
   const toggleSidebar = (options) => {
     const activeItemText = options.target.innerText;
     setActiveItem(activeItemText);
   };
   return (
-    <div className="sidebar">
-      <div className="toggle-btn">
-        <ul className="links">
-          {links.map((link, index) => (
+    <div className='sidebar'>
+      <div className='toggle-btn'>
+        <ul className='links'>
+          {links.map((link) => (
             <li
-              key={index}
-              className={`${activeItem === link.text ? "open" : ""}`}
+              key={link.text}
+              className={`${activeItem === link.text ? 'open' : ''}`}
               onClick={toggleSidebar}
             >
               <span>{link.text}</span>
