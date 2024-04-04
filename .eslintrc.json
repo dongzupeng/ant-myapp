@@ -10,7 +10,8 @@
   "plugins": ["react", "prettier"],
   "rules": {
     "prettier/prettier": "error",
-    "react/no-unused-prop-types": "true"
+    "react/prop-types":"off",
+    "react/no-unused-prop-types": "off"
   },
   "settings": {
     "react": {
