@@ -8,13 +8,17 @@ import './assets/style/theme.less';
 
 //引入redux
 import { Provider } from 'react-redux';
-import store from '@/redux/store';
+import { store, persistor } from '@/redux/store';
+// 导入redux-persist提供PersistGate组件
+import { PersistGate } from 'redux-persist/integration/react';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
     <RouterProvider router={router}>
-      <App />
+      <PersistGate loading={null} persistor={persistor}>
+        <App />
+      </PersistGate>
     </RouterProvider>
   </Provider>,
 );
