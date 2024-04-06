@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import './index.less';
 import imgUrl from '@/assets/images/avatar.jpg';
 import Sidebar from '@/components/Sidebar';
-import Test from '@/components/test.js';
+// import Test from '@/components/test.js';
 
 const items = [
   { label: '退出登录', key: 'logout' }, // 菜单项务必填写 key
@@ -60,7 +60,7 @@ function App() {
       </div>
       <footer className='footer'>
         头文字D的秘密花园 ©{new Date().getFullYear()} Created by 头文字D
-        <Test></Test>
+        {/* <Test></Test> */}
       </footer>
     </div>
   );
