@@ -5,6 +5,7 @@ import { Navigate } from 'react-router-dom';
 
 const Login = React.lazy(() => import('@/pages/Login'));
 const Home = React.lazy(() => import('@/pages/Home'));
+const About = React.lazy(() => import('@/pages/About'));
 const NotFoundPage = React.lazy(() => import('@/components/NotFound/index.js'));
 
 const routes = [
@@ -24,6 +25,16 @@ const routes = [
             <Home />
           </Suspense>
         ),
+        children: [
+          {
+            path: '/home',
+            element: (
+              <Suspense fallback={<Skeleton />}>
+                <About />
+              </Suspense>
+            ),
+          },
+        ],
       },
     ],
   },

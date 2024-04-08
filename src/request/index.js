@@ -1,4 +1,3 @@
-import FullLoading from '@/components/FullLoading';
 import { getCache } from '@/utils/tokenStorage';
 import axios from 'axios';
 
@@ -11,9 +10,6 @@ axiosInstance.interceptors.request.use(
   (config) => {
     if (!config.data) {
       config.data = {};
-    }
-    if (config.headers.isLoading !== false) {
-      FullLoading.show();
     }
     const token = getCache('token');
     if (token) {
@@ -29,9 +25,6 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   (response) => {
     const { status, data } = response;
-    if (response.config.headers.isLoading !== false) {
-      FullLoading.hide();
-    }
     if (status === 200) {
       return data;
     } else {
@@ -39,9 +32,6 @@ axiosInstance.interceptors.response.use(
     }
   },
   (error) => {
-    if (error.config.headers.isLoading !== false) {
-      FullLoading.hide();
-    }
     return Promise.reject(error);
   },
 );

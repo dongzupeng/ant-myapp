@@ -24,4 +24,15 @@ module.exports = {
       '@': path.resolve(__dirname, 'src'),
     },
   },
+  devServer: {
+    proxy: {
+      '/api': {
+        target: 'https://api.apiopen.top',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api': '/api',
+        },
+      },
+    },
+  },
 };

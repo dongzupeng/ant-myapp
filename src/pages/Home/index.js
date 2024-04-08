@@ -1,7 +1,7 @@
 import React from 'react';
 import { Dropdown, Modal } from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Outlet } from 'react-router-dom';
 import './index.less';
 import imgUrl from '@/assets/images/avatar.jpg';
 import Sidebar from '@/components/Sidebar';
@@ -56,7 +56,9 @@ function App() {
           {/* 侧边栏组件 */}
           <Sidebar links={links}></Sidebar>
         </nav>
-        <main className='main-content'>Main Content</main>
+        <main className='main-content'>
+          <Outlet></Outlet>
+        </main>
       </div>
       <footer className='footer'>
         头文字D的秘密花园 ©{new Date().getFullYear()} Created by 头文字D
