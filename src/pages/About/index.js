@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getImageList } from '@/api/getImages';
+import WaterfallFlow from '@/components/WaterfallFlow';
 const About = () => {
   const [imgList, setImgList] = useState([]);
   useEffect(() => {
@@ -23,12 +24,22 @@ const About = () => {
       }
     };
     fetchData(); // 调用fetchData函数
-  }, []); // 空数组作为第二个参数，表示effect仅在组件挂载时执行一次
+  }, []);
+  const items = Array.from({ length: 20 }, (_, index) => (
+    <div
+      key={index}
+      style={{
+        height: `${Math.floor(Math.random() * 200) + 100}px`,
+        backgroundColor: 'lightblue',
+      }}
+    >
+      Item {index + 1}
+    </div>
+  ));
   return (
     <div className='img-box'>
-      {imgList.map((item) => (
-        <img key={item.id} src={item.url} />
-      ))}
+      <h1>Waterfall Flow Example</h1>
+      <WaterfallFlow items={items} columnCount={3} />
     </div>
   );
 };
