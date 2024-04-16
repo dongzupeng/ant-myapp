@@ -23,6 +23,12 @@ module.exports = {
     alias: {
       '@': path.resolve(__dirname, 'src'),
     },
+    configure: {
+      output: {
+        path: path.resolve(__dirname, 'build'),
+        publicPath: './',
+      },
+    },
   },
   devServer: {
     proxy: {
