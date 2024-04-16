@@ -26,7 +26,7 @@ module.exports = {
     configure: {
       output: {
         path: path.resolve(__dirname, 'build'),
-        publicPath: './',
+        publicPath: '/ant-myapp/',
       },
     },
   },
