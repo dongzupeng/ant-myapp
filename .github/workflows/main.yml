@@ -32,8 +32,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
       # 执行安装
-      # - name: Install dependencies
-      #   run: yarn install
       - name: Install dependencies
         run: yarn install --frozen-lockfile
     
