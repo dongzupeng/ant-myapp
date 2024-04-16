@@ -1,0 +1,45 @@
+name: deployReactProject
+
+on:
+  push:
+    branches: 
+     - master
+
+
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # 具体的执行步骤
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout
+        uses: actions/checkout@main
+
+      # 使用的node版本   
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@main
+        with:
+          node-version:  ${{ matrix.node }}
+      
+      # 执行安装
+      - name: Install dependencies
+        run: yarn install
+    
+      # 执行打包
+      - name: Build ReactApp
+        run: yarn build
+      
+      # 执行部署
+      - name: Deploy ReactApp to Pages
+        run: |
+          cd  ./dist
+          git init
+          git config user.name "dzp"
+          git config user.email "${{ secrets.GIT_EMAIL }}"
+          git add -A
+          git commit -m 'deploy ReactApp'
+          git push -f https://dongzupeng:${{ secrets.ACCESS_TOKEN }}@github.com/dongzupeng/ant-myapp.git master:gh-pages
+          cd -
