@@ -23,13 +23,11 @@ module.exports = {
     alias: {
       '@': path.resolve(__dirname, 'src'),
     },
-    webpack: {
-      configure: (webpackConfig, { env }) => {
-        if (env === 'production') {
-          webpackConfig.output.publicPath = '/ant-myapp/';
-        }
-        return webpackConfig;
-      },
+    configure: (webpackConfig, { env }) => {
+      if (env === 'production') {
+        webpackConfig.output.publicPath = '/ant-myapp/';
+      }
+      return webpackConfig;
     },
   },
   devServer: {
