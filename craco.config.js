@@ -26,6 +26,16 @@ module.exports = {
     configure: (webpackConfig, { env }) => {
       if (env === 'production') {
         webpackConfig.output.publicPath = '/ant-myapp/';
+        // 添加处理 favicon.ico 的配置
+        webpackConfig.module.rules.push({
+          test: /\.ico$/,
+          loader: 'file-loader',
+          options: {
+            name: '[name].[ext]',
+            outputPath: 'static/media',
+            publicPath: '/ant-myapp/static/media',
+          },
+        });
       }
       return webpackConfig;
     },
