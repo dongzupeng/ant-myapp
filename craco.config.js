@@ -32,8 +32,7 @@ module.exports = {
           loader: 'file-loader',
           options: {
             name: '[name].[ext]',
-            outputPath: 'static/media',
-            publicPath: '/ant-myapp/static/media',
+            publicPath: '/ant-myapp/',
           },
         });
       }
