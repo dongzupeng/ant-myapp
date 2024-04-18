@@ -2,6 +2,7 @@ import React from 'react';
 import { Dropdown, Modal } from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { useNavigate, Outlet } from 'react-router-dom';
+import { removeCache } from '@/utils/tokenStorage';
 import './index.less';
 import imgUrl from '@/assets/images/avatar.jpg';
 import Sidebar from '@/components/Sidebar';
@@ -37,6 +38,7 @@ function App() {
       onOk() {
         console.log('确认');
         navigate('/login');
+        removeCache('token');
       },
       onCancel() {
         console.log('取消');

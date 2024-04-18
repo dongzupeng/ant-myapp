@@ -1,18 +1,21 @@
-import React from 'react';
+import React, { useId } from 'react';
 import { Form, Input, Button, Checkbox, Typography, message } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import './index.less';
+import { setCache } from '@/utils/tokenStorage';
 
 const { Title } = Typography;
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const Id = useId();
   const onFinish = (values) => {
     console.log('Received values:', values);
     const { username, password } = values;
     if (username === 'admin' && password === '123123') {
       navigate('/');
+      setCache('token', Id);
       message.success('登录成功，欢迎回来！');
     } else {
       message.error('请输入正确的用户名密码');
