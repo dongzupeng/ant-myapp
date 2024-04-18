@@ -1,38 +1,97 @@
-import React, { useState, useEffect } from 'react';
-import './WaterfallFlow.less'; // 样式文件
+import React, { useState, useEffect, useRef } from 'react';
+import { getImageList } from '@/api/getImages';
+import './WaterfallFlow.less';
 
-const WaterfallFlow = ({ items, columnCount }) => {
-  const [columns, setColumns] = useState([]);
+const COLUMNS = 3;
+const PAGE_SIZE = 20;
 
+const WaterfallFlow = () => {
+  const [photos, setPhotos] = useState([]);
+  const [page, setPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
+  const wallRef = useRef(null);
+
+  const loadMorePhotos = async () => {
+    if (isLoading) return;
+    setIsLoading(true);
+
+    try {
+      const params = {
+        type: 'beauty',
+        page,
+        size: PAGE_SIZE,
+      };
+      setPage(page + 1);
+      const newPhotos = await getImageList(params);
+      let { list } = newPhotos.result;
+      list = [...photos, ...list];
+      list = Array.from(new Set(list.map((item) => item.id))).map((id) => {
+        return list.find((i) => i.id === id);
+      });
+      setPhotos(list);
+    } catch (error) {
+      console.error('Error fetching photos:', error);
+    }
+
+    setIsLoading(false);
+  };
+
+  // 监听滚动事件
   useEffect(() => {
-    // 初始化列
-    const initialColumns = Array.from({ length: columnCount }, () => []);
-    setColumns(initialColumns);
-  }, [columnCount]);
+    const handleScroll = () => {
+      if (
+        wallRef.current &&
+        wallRef.current.scrollHeight -
+          (wallRef.current.scrollTop + wallRef.current.clientHeight) <
+          10
+      ) {
+        loadMorePhotos();
+      }
+    };
 
+    if (wallRef.current) {
+      wallRef.current.addEventListener('scroll', handleScroll);
+    }
+
+    return () => {
+      if (wallRef.current) {
+        wallRef.current.removeEventListener('scroll', handleScroll);
+      }
+    };
+  }, [loadMorePhotos]);
+
+  // 模拟API请求
   useEffect(() => {
-    // 更新列
-    const updatedColumns = Array.from({ length: columnCount }, () => []);
-
-    items.forEach((item, index) => {
-      const columnIndex = index % columnCount;
-      updatedColumns[columnIndex].push(item);
-    });
-
-    setColumns(updatedColumns);
-  }, [items, columnCount]);
+    (async () => {
+      const params = {
+        type: 'beauty',
+        page,
+        size: PAGE_SIZE,
+      };
+      const initialPhotos = await getImageList(params);
+      let { list } = initialPhotos.result;
+      list = Array.from(new Set(list.map((item) => item.id))).map((id) => {
+        return list.find((i) => i.id === id);
+      });
+      setPhotos(list);
+    })();
+  }, []);
 
   return (
-    <div className='waterfall-flow'>
-      {columns.map((column, index) => (
-        <div key={index} className='waterfall-column'>
-          {column.map((item, itemIndex) => (
-            <div key={itemIndex} className='waterfall-item'>
-              {item}
-            </div>
-          ))}
-        </div>
-      ))}
+    <div ref={wallRef} style={{ height: '600px', overflowY: 'auto' }}>
+      {photos.length > 0 &&
+        photos.map((item) => (
+          <div
+            key={item.id}
+            style={{
+              width: `calc(100% / ${COLUMNS})`,
+              float: 'left',
+            }}
+          >
+            <img src={item.url} alt='photo' style={{ width: '100%' }} />
+          </div>
+        ))}
+      {isLoading && <div>Loading...</div>}
     </div>
   );
 };
