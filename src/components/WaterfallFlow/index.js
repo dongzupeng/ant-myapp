@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { getImageList } from '@/api/getImages';
 import './WaterfallFlow.less';
 
-const COLUMNS = 3;
+// const COLUMNS = 3;
 const PAGE_SIZE = 20;
 
 const WaterfallFlow = () => {
@@ -77,20 +77,48 @@ const WaterfallFlow = () => {
     })();
   }, []);
 
+  // 生成随机高度
+  const generateRandomHeight = () => {
+    return Math.floor(Math.random() * 100) + 200; // 随机生成 200 到 500 之间的高度
+  };
+
+  // 获取高度最小的列索引
+  const getMinHeightColumnIndex = () => {
+    const columns = document.querySelectorAll('.column-item');
+    console.log(columns, '###');
+    const columnHeights = Array.from(columns).map(
+      (column) => column.offsetHeight,
+    );
+    return columnHeights.indexOf(Math.min(...columnHeights));
+  };
+
+  // 添加图片到高度最小的列
+  const addImageToMinHeightColumn = (image) => {
+    const columnIndex = getMinHeightColumnIndex();
+    console.log(columnIndex, '最小高度==>');
+    const column = document.querySelectorAll('.column-item')[columnIndex];
+    const img = document.createElement('img');
+    img.src = image.url;
+    img.alt = image.title;
+    img.style.width = '30%';
+    img.style.height = generateRandomHeight() + 'px';
+    // img.style.marginBottom = '20px'; // 图片之间留有一定的间距
+    column.appendChild(img);
+    // updateAllColumnsHeight();
+  };
   return (
     <div ref={wallRef} style={{ height: '600px', overflowY: 'auto' }}>
-      {photos.length > 0 &&
-        photos.map((item) => (
-          <div
-            key={item.id}
-            style={{
-              width: `calc(100% / ${COLUMNS})`,
-              float: 'left',
-            }}
-          >
-            <img src={item.url} alt='photo' style={{ width: '100%' }} />
-          </div>
-        ))}
+      <div
+        className='column'
+        style={{
+          width: `100%`,
+        }}
+      >
+        <div className='column-item'></div>
+      </div>
+      {photos.map((item) => {
+        addImageToMinHeightColumn(item);
+      })}
       {isLoading && <div>Loading...</div>}
     </div>
   );

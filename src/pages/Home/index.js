@@ -22,8 +22,8 @@ function App() {
     }
   };
   const links = [
-    { url: '/about', text: 'About' },
-    { url: '/contact', text: 'Contact' },
+    { url: '/home', text: 'Home' },
+    { url: '/music', text: 'Music' },
     { url: '/message', text: 'Message' },
     { url: '/center', text: 'Center' },
   ];

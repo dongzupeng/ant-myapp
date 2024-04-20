@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
 import './Sidebar.less';
+import { useNavigate } from 'react-router-dom';
 
 const Sidebar = ({ links }) => {
   const [activeItem, setActiveItem] = useState('About');
+  const navigate = useNavigate();
 
-  const toggleSidebar = (options) => {
-    const activeItemText = options.target.innerText;
-    setActiveItem(activeItemText);
+  const toggleSidebar = (link) => {
+    setActiveItem(link.text);
+    if (link.url === '/home') {
+      navigate(link.url);
+    } else {
+      navigate('/home' + link.url);
+    }
   };
   return (
     <div className='sidebar'>
@@ -16,7 +22,7 @@ const Sidebar = ({ links }) => {
             <li
               key={link.text}
               className={`${activeItem === link.text ? 'open' : ''}`}
-              onClick={toggleSidebar}
+              onClick={() => toggleSidebar(link)}
             >
               <span>{link.text}</span>
             </li>

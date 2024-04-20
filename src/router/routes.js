@@ -22,6 +22,7 @@ const PrivateRoute = ({ element }) => {
 const Login = React.lazy(() => import('@/pages/Login'));
 const Home = React.lazy(() => import('@/pages/Home'));
 const About = React.lazy(() => import('@/pages/About'));
+const MusicPlayer = React.lazy(() => import('@/pages/MusicPlayer'));
 const NotFoundPage = React.lazy(() => import('@/components/NotFound/index.js'));
 
 const routes = [
@@ -47,6 +48,14 @@ const routes = [
             element: (
               <Suspense fallback={<Skeleton />}>
                 {<PrivateRoute element={<About />} />}
+              </Suspense>
+            ),
+          },
+          {
+            path: '/home/music',
+            element: (
+              <Suspense fallback={<Skeleton />}>
+                {<PrivateRoute element={<MusicPlayer />} />}
               </Suspense>
             ),
           },
