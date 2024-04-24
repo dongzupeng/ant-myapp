@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Button, List } from 'antd';
 import './index.less';
 import {
@@ -6,10 +6,14 @@ import {
   PauseCircleOutlined,
   StepForwardOutlined,
   StepBackwardOutlined,
+  CustomerServiceFilled,
 } from '@ant-design/icons';
 
 const MusicPlayer = () => {
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
+  const [currentTime, setCurrentTime] = useState('00:00');
+  const [allTime, setAllTime] = useState('00:00');
+  const [progress, setProgress] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef(null);
 
@@ -34,37 +38,89 @@ const MusicPlayer = () => {
       title: '白兰花',
       url: 'music/白兰花-林俊杰.mp3',
     },
-    // Add more songs as needed
   ];
 
   const playSong = () => {
     setIsPlaying(true);
     audioRef.current.play();
   };
-
+  // 暂停歌曲
   const pauseSong = () => {
     setIsPlaying(false);
     audioRef.current.pause();
   };
-
+  // 播放下一首
   const playNextSong = () => {
-    setCurrentSongIndex((prevIndex) => (prevIndex + 1) % songs.length);
+    const nextIndex = (currentSongIndex + 1) % songs.length;
+    setCurrentSongIndex(nextIndex);
+    audioRef.current.src = songs[nextIndex].url;
+    audioRef.current.load();
+    audioRef.current.addEventListener('canplay', () => {
+      // 当资源可以播放时，开始播放
+      playSong();
+    });
   };
-
+  // 播放上一首
   const playPreviousSong = () => {
-    setCurrentSongIndex(
-      (prevIndex) => (prevIndex - 1 + songs.length) % songs.length,
-    );
+    const prevIndex = (currentSongIndex - 1 + songs.length) % songs.length;
+    setCurrentSongIndex(prevIndex);
+    audioRef.current.src = songs[prevIndex].url;
+    audioRef.current.load();
+    audioRef.current.addEventListener('canplay', () => {
+      // 当资源可以播放时，开始播放
+      playSong();
+    });
   };
-
+  // 点击列表项播放歌曲
   const handleListItemClick = (index) => {
     setCurrentSongIndex(index);
     playSong();
   };
+  const handleSongEnded = () => {
+    playNextSong();
+  };
+  const formatTime = (seconds) => {
+    const date = new Date(seconds * 1000);
+    const minutes = date.getUTCMinutes();
+    const secondsDisplay = Math.floor(date.getUTCSeconds());
+
+    return `${minutes.toString().padStart(2, '0')}:${secondsDisplay.toString().padStart(2, '0')}`;
+  };
+
+  // 当当前歌曲播放完毕时，切换到下一首
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.addEventListener('ended', () => {
+        audioRef.current.src = songs[currentSongIndex].url;
+        handleSongEnded();
+      });
+    }
+  }, [audioRef, currentSongIndex, songs]);
+  // 更新播放进度和时间显示
+  useEffect(() => {
+    if (audioRef.current) {
+      const updateProgress = () => {
+        setProgress(
+          (audioRef.current.currentTime / audioRef.current.duration) * 100,
+        );
+        setCurrentTime(formatTime(audioRef.current.currentTime));
+        setAllTime(formatTime(audioRef.current.duration));
+      };
+
+      audioRef.current.addEventListener('timeupdate', updateProgress);
+
+      return () => {
+        audioRef.current.removeEventListener('timeupdate', updateProgress);
+      };
+    }
+  }, [audioRef]);
 
   return (
     <div className='music-container'>
-      <h1 className='music-title'>bro,放轻松</h1>
+      <div className='music-title'>
+        bro,放轻松{' '}
+        <CustomerServiceFilled style={{ fontSize: '30px', color: '#6f91ee' }} />
+      </div>
       <audio ref={audioRef} src={songs[currentSongIndex].url}></audio>
       <List
         dataSource={songs}
@@ -78,6 +134,20 @@ const MusicPlayer = () => {
         )}
       />
       <h2 style={{ textAlign: 'center' }}>{songs[currentSongIndex].title}</h2>
+      <div style={{ width: '100%', backgroundColor: '#ddd', height: '10px' }}>
+        <div
+          id='progress-bar'
+          style={{
+            width: `${progress}% `,
+            backgroundColor: '#bcc9ef',
+            height: '10px',
+          }}
+        ></div>
+      </div>
+
+      <div id='current-time'>
+        {currentTime}/{allTime}
+      </div>
       <div
         style={{
           display: 'flex',
@@ -86,29 +156,13 @@ const MusicPlayer = () => {
           marginBottom: '20px',
         }}
       >
-        <Button
-          shape='circle'
-          icon={<StepBackwardOutlined />}
-          onClick={playPreviousSong}
-        />
+        <Button icon={<StepBackwardOutlined />} onClick={playPreviousSong} />
         {isPlaying ? (
-          <Button
-            shape='circle'
-            icon={<PauseCircleOutlined />}
-            onClick={pauseSong}
-          />
+          <Button icon={<PauseCircleOutlined />} onClick={pauseSong} />
         ) : (
-          <Button
-            shape='circle'
-            icon={<PlayCircleOutlined />}
-            onClick={playSong}
-          />
+          <Button icon={<PlayCircleOutlined />} onClick={playSong} />
         )}
-        <Button
-          shape='circle'
-          icon={<StepForwardOutlined />}
-          onClick={playNextSong}
-        />
+        <Button icon={<StepForwardOutlined />} onClick={playNextSong} />
       </div>
     </div>
   );

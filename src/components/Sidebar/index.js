@@ -1,18 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Sidebar.less';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const Sidebar = ({ links }) => {
-  const [activeItem, setActiveItem] = useState('About');
+  const [activeItem, setActiveItem] = useState('Home');
   const navigate = useNavigate();
+  const location = useLocation();
 
+  useEffect(() => {
+    const path = location.pathname;
+    // 解决刷新页面后，activeItem不显示的问题
+    toggleSidebar(links.find((link) => link.url === path));
+  }, []);
+  // 切换侧边栏
   const toggleSidebar = (link) => {
     setActiveItem(link.text);
-    if (link.url === '/home') {
-      navigate(link.url);
-    } else {
-      navigate('/home' + link.url);
-    }
+    navigate(link.url);
   };
   return (
     <div className='sidebar'>

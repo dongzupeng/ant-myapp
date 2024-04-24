@@ -23,9 +23,9 @@ function App() {
   };
   const links = [
     { url: '/home', text: 'Home' },
-    { url: '/music', text: 'Music' },
-    { url: '/message', text: 'Message' },
-    { url: '/center', text: 'Center' },
+    { url: '/home/music', text: 'Music' },
+    { url: 'home/message', text: 'Message' },
+    { url: '/home/center', text: 'Center' },
   ];
   // 退出登录
   const confirm = () => {
