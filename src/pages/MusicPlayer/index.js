@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Button, List } from 'antd';
+// import { useLocation } from 'react-router-dom';
 import './index.less';
 import {
   PlayCircleOutlined,
@@ -43,6 +44,8 @@ const MusicPlayer = () => {
   const playSong = () => {
     setIsPlaying(true);
     audioRef.current.play();
+    // 保存播放状态到 localStorage
+    localStorage.setItem('isPlaying', 'true');
   };
   // 暂停歌曲
   const pauseSong = () => {
@@ -74,7 +77,12 @@ const MusicPlayer = () => {
   // 点击列表项播放歌曲
   const handleListItemClick = (index) => {
     setCurrentSongIndex(index);
-    playSong();
+    audioRef.current.src = songs[index].url;
+    audioRef.current.load();
+    audioRef.current.addEventListener('canplay', () => {
+      // 当资源可以播放时，开始播放
+      playSong();
+    });
   };
   const handleSongEnded = () => {
     playNextSong();
@@ -87,6 +95,16 @@ const MusicPlayer = () => {
     return `${minutes.toString().padStart(2, '0')}:${secondsDisplay.toString().padStart(2, '0')}`;
   };
 
+  useEffect(() => {
+    // 当组件加载时，检查 localStorage 中的播放状态
+    const savedIsPlaying = localStorage.getItem('isPlaying');
+    if (savedIsPlaying === 'true') {
+      // 如果音乐正在播放，恢复播放
+      setIsPlaying(true);
+      audioRef.current.play();
+    }
+  }, []); // 注意：这是一个只在组件加载时运行一次的 effect
+
   // 当当前歌曲播放完毕时，切换到下一首
   useEffect(() => {
     if (audioRef.current) {
@@ -98,19 +116,19 @@ const MusicPlayer = () => {
   }, [audioRef, currentSongIndex, songs]);
   // 更新播放进度和时间显示
   useEffect(() => {
-    if (audioRef.current) {
-      const updateProgress = () => {
-        setProgress(
-          (audioRef.current.currentTime / audioRef.current.duration) * 100,
-        );
-        setCurrentTime(formatTime(audioRef.current.currentTime));
-        setAllTime(formatTime(audioRef.current.duration));
+    const audioElement = audioRef.current;
+    if (audioElement) {
+      const update = () => {
+        setProgress((audioElement.currentTime / audioElement.duration) * 100);
+        setCurrentTime(formatTime(audioElement.currentTime));
+        setAllTime(formatTime(audioElement.duration));
       };
 
-      audioRef.current.addEventListener('timeupdate', updateProgress);
+      audioElement.addEventListener('timeupdate', update);
 
+      // 在组件卸载时清除事件监听器
       return () => {
-        audioRef.current.removeEventListener('timeupdate', updateProgress);
+        audioElement.removeEventListener('timeupdate', update);
       };
     }
   }, [audioRef]);
