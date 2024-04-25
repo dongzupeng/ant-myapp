@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Image } from 'antd';
 import { getImageList } from '@/api/getImages';
-import './WaterfallFlow.less';
 
 const WaterfallFlow = ({ PAGE_SIZE = 15 }) => {
   const [items, setItems] = useState([]);
