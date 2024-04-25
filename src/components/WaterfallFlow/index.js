@@ -3,13 +3,13 @@ import { Image } from 'antd';
 import { getImageList } from '@/api/getImages';
 import './WaterfallFlow.less';
 
-const WaterfallFlow = () => {
+const WaterfallFlow = ({ PAGE_SIZE = 15 }) => {
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [page, setPage] = useState(1);
 
   // 加载更多数据
-  const loadMore = (PAGE_SIZE) => {
+  const loadMore = () => {
     const params = {
       type: 'beauty',
       page,
@@ -33,8 +33,8 @@ const WaterfallFlow = () => {
     const handleScroll = () => {
       const { scrollTop, clientHeight, scrollHeight } =
         document.documentElement;
-      if (scrollHeight - scrollTop - clientHeight < 200) {
-        loadMore(10);
+      if (scrollHeight - scrollTop - clientHeight < 300) {
+        loadMore();
       }
     };
 
@@ -60,8 +60,6 @@ const WaterfallFlow = () => {
               key={item.id}
               src={item.url}
               style={{ width: '100%', borderRadius: '8px' }}
-              onError={() => {}} // 忽略图片加载错误
-              onLoad={() => {}} // 不需要特别处理图片加载完成事件，因为占位符会在图片加载时自动被替换
             />
           </div>
         ))}
