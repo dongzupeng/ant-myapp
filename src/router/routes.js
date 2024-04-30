@@ -22,7 +22,7 @@ const PrivateRoute = ({ element }) => {
 const Login = React.lazy(() => import('@/pages/Login'));
 const Layout = React.lazy(() => import('@/layout/container/index.js'));
 const Home = React.lazy(() => import('@/pages/Home/index.js'));
-const MusicPlayer = React.lazy(() => import('@/pages/MusicPlayer'));
+// const MusicPlayer = React.lazy(() => import('@/pages/MusicPlayer'));
 const ImageSlider = React.lazy(() => import('@/pages/ImageSlider'));
 const NotFoundPage = React.lazy(() => import('@/components/NotFound/index.js'));
 
@@ -52,14 +52,14 @@ const routes = [
               </Suspense>
             ),
           },
-          {
-            path: '/home/music',
-            element: (
-              <Suspense fallback={<Skeleton />}>
-                {<PrivateRoute element={<MusicPlayer />} />}
-              </Suspense>
-            ),
-          },
+          // {
+          //   path: '/home/music',
+          //   element: (
+          //     <Suspense fallback={<Skeleton />}>
+          //       {<PrivateRoute element={<MusicPlayer />} />}
+          //     </Suspense>
+          //   ),
+          // },
           {
             path: '/home/imageslider',
             element: (

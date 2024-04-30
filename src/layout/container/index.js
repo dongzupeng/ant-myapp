@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Dropdown, Modal } from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { useNavigate, Outlet } from 'react-router-dom';
@@ -6,26 +6,31 @@ import { removeCache } from '@/utils/tokenStorage';
 import './index.less';
 import imgUrl from '@/assets/images/avatar.jpg';
 import Sidebar from '@/layout/Sidebar';
+import MusicPlayer from '@/layout/Drawer';
 // import Test from '@/components/test.js';
 
 const items = [
   { label: '退出登录', key: 'logout' }, // 菜单项务必填写 key
   { label: '设置', key: 'setting' },
+  { label: '听听音乐吧', key: 'music' },
   { label: '个人中心', key: 'center' },
 ];
 
 function Layout() {
   const navigate = useNavigate();
+  // 父组件中定义状态
+  const [open, setOpen] = useState(false);
   const onClick = ({ key }) => {
     if (key === 'logout') {
       confirm();
     }
+    if (key === 'music') {
+      setOpen(true);
+    }
   };
   const links = [
     { url: '/home', text: 'Home' },
-    { url: '/home/music', text: 'Music' },
     { url: '/home/imageslider', text: 'ImageSlider' },
-    { url: '/home/center', text: 'Center' },
   ];
   // 退出登录
   const confirm = () => {
@@ -57,6 +62,7 @@ function Layout() {
         <nav className='sidebar'>
           {/* 侧边栏组件 */}
           <Sidebar links={links}></Sidebar>
+          <MusicPlayer open={open} setOpen={setOpen}></MusicPlayer>
         </nav>
         <main className='main-content'>
           <Outlet></Outlet>
