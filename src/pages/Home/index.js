@@ -1,5 +1,5 @@
 import React from 'react';
-import WaterfallFlow from '@/components/WaterfallFlow';
+import WaterfallFlow from '@/pages/Home/components/WaterfallFlow';
 const Home = () => {
   return (
     <div className='img-box'>

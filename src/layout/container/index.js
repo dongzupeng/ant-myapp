@@ -5,7 +5,7 @@ import { useNavigate, Outlet } from 'react-router-dom';
 import { removeCache } from '@/utils/tokenStorage';
 import './index.less';
 import imgUrl from '@/assets/images/avatar.jpg';
-import Sidebar from '@/components/Sidebar';
+import Sidebar from '@/layout/Sidebar';
 // import Test from '@/components/test.js';
 
 const items = [
