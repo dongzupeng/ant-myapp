@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import useSongs from './useSongs.js';
 import { Button, List } from 'antd';
 // import { useLocation } from 'react-router-dom';
 import './index.less';
@@ -18,34 +19,11 @@ const MusicPlayer = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef(null);
 
-  const songs = [
-    {
-      title: '安静',
-      url: 'music/安静-周杰伦-范特西.mp3',
-    },
-    {
-      title: '爸我回来了',
-      url: 'music/爸我回来了-周杰伦.mp3',
-    },
-    {
-      title: '爱在西元前',
-      url: 'music/爱在西元前-周杰伦.mp3',
-    },
-    {
-      title: '暗号',
-      url: 'music/暗号-周杰伦.mp3',
-    },
-    {
-      title: '白兰花',
-      url: 'music/白兰花-林俊杰.mp3',
-    },
-  ];
+  const [songs, setSongs] = useState([]);
 
   const playSong = () => {
     setIsPlaying(true);
     audioRef.current.play();
-    // 保存播放状态到 localStorage
-    localStorage.setItem('isPlaying', 'true');
   };
   // 暂停歌曲
   const pauseSong = () => {
@@ -96,13 +74,7 @@ const MusicPlayer = () => {
   };
 
   useEffect(() => {
-    // 当组件加载时，检查 localStorage 中的播放状态
-    const savedIsPlaying = localStorage.getItem('isPlaying');
-    if (savedIsPlaying === 'true') {
-      // 如果音乐正在播放，恢复播放
-      setIsPlaying(true);
-      audioRef.current.play();
-    }
+    setSongs(useSongs());
   }, []); // 注意：这是一个只在组件加载时运行一次的 effect
 
   // 当当前歌曲播放完毕时，切换到下一首
@@ -139,19 +111,26 @@ const MusicPlayer = () => {
         bro,放轻松{' '}
         <CustomerServiceFilled style={{ fontSize: '30px', color: '#6f91ee' }} />
       </div>
-      <audio ref={audioRef} src={songs[currentSongIndex].url}></audio>
-      <List
-        dataSource={songs}
-        renderItem={(song, index) => (
-          <List.Item
-            onClick={() => handleListItemClick(index)}
-            className={index === currentSongIndex ? 'active' : ''}
-          >
-            {song.title}
-          </List.Item>
-        )}
-      />
-      <h2 style={{ textAlign: 'center' }}>{songs[currentSongIndex].title}</h2>
+      <audio
+        ref={audioRef}
+        src={songs.length && songs[currentSongIndex].url}
+      ></audio>
+      {songs.length && (
+        <List
+          dataSource={songs.length && songs}
+          renderItem={(song, index) => (
+            <List.Item
+              onClick={() => handleListItemClick(index)}
+              className={index === currentSongIndex ? 'active' : ''}
+            >
+              {songs.length && song.title}
+            </List.Item>
+          )}
+        />
+      )}
+      <h2 style={{ textAlign: 'center' }}>
+        {songs.length && songs[currentSongIndex].title}
+      </h2>
       <div style={{ width: '100%', backgroundColor: '#ddd', height: '10px' }}>
         <div
           id='progress-bar'
