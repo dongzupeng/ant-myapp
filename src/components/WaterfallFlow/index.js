@@ -56,9 +56,11 @@ const WaterfallFlow = ({ PAGE_SIZE = 15 }) => {
           >
             <Image
               placeholder
-              key={item.id}
               src={item.url}
-              style={{ width: '100%', borderRadius: '8px' }}
+              style={{
+                width: '100%',
+                borderRadius: '8px',
+              }}
             />
           </div>
         ))}

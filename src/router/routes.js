@@ -20,9 +20,10 @@ const PrivateRoute = ({ element }) => {
 };
 
 const Login = React.lazy(() => import('@/pages/Login'));
-const Home = React.lazy(() => import('@/pages/Home'));
-const About = React.lazy(() => import('@/pages/About'));
+const Layout = React.lazy(() => import('@/layout/container/index.js'));
+const Home = React.lazy(() => import('@/pages/Home/index.js'));
 const MusicPlayer = React.lazy(() => import('@/pages/MusicPlayer'));
+const ImageSlider = React.lazy(() => import('@/pages/ImageSlider'));
 const NotFoundPage = React.lazy(() => import('@/components/NotFound/index.js'));
 
 const routes = [
@@ -39,7 +40,7 @@ const routes = [
         path: '/home',
         element: (
           <Suspense fallback={<Skeleton />}>
-            {<PrivateRoute element={<Home />} />}
+            {<PrivateRoute element={<Layout />} />}
           </Suspense>
         ),
         children: [
@@ -47,7 +48,7 @@ const routes = [
             path: '/home',
             element: (
               <Suspense fallback={<Skeleton />}>
-                {<PrivateRoute element={<About />} />}
+                {<PrivateRoute element={<Home />} />}
               </Suspense>
             ),
           },
@@ -56,6 +57,14 @@ const routes = [
             element: (
               <Suspense fallback={<Skeleton />}>
                 {<PrivateRoute element={<MusicPlayer />} />}
+              </Suspense>
+            ),
+          },
+          {
+            path: '/home/imageslider',
+            element: (
+              <Suspense fallback={<Skeleton />}>
+                {<PrivateRoute element={<ImageSlider />} />}
               </Suspense>
             ),
           },

@@ -1,0 +1,52 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 20px;
+    &__items {
+        img:hover {
+            transform: scale(1.1);
+            z-index: 2;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+            filter: grayscale(0);
+        }
+    }
+
+    &__items:last-child {
+        margin-bottom: 100px;
+    }
+}
+
+.polaroid {
+    box-sizing: border-box;
+    margin: 20px;
+    width: 350px;
+    height: 450px;
+    padding: 1rem;
+    box-shadow: 0 0.2rem 1.2rem rgba(0, 0, 0, 0.2);
+
+    &__content {
+
+        &-image {
+            height: 350px;
+            width: 100%;
+            overflow: hidden;
+
+            &>img {
+                height: 100%;
+                width: 100%;
+                display: block;
+                object-fit: cover;
+            }
+        }
+
+        &-caption {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 25px;
+            margin-top: 20px;
+        }
+    }
+}
