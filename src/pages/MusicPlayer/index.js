@@ -131,13 +131,14 @@ const MusicPlayer = () => {
       <h2 style={{ textAlign: 'center' }}>
         {songs.length && songs[currentSongIndex].title}
       </h2>
-      <div style={{ width: '100%', backgroundColor: '#ddd', height: '10px' }}>
+      <div style={{ width: '100%', backgroundColor: '#ddd', height: '5px' }}>
         <div
           id='progress-bar'
           style={{
             width: `${progress}% `,
             backgroundColor: '#bcc9ef',
-            height: '10px',
+            height: '5px',
+            borderRadius: '10px',
           }}
         ></div>
       </div>
