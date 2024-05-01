@@ -1,6 +1,7 @@
 const path = require('path');
 const CracoLessPlugin = require('craco-less');
 const TerserPlugin = require('terser-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = {
   plugins: [
@@ -25,6 +26,32 @@ module.exports = {
       '@': path.resolve(__dirname, 'src'),
     },
     configure: (webpackConfig, { env }) => {
+      // 如果你想要压缩图片，你需要安装image-webpack-loader
+      // npm install image-webpack-loader --save-dev
+      // 或者 yarn add image-webpack-loader --dev
+      webpackConfig.module.rules.forEach((rule) => {
+        if (rule.oneOf) {
+          rule.oneOf.forEach((loader) => {
+            if (
+              loader.loader &&
+              loader.loader.indexOf('file-loader') >= 0 &&
+              loader.loader.indexOf('images') >= 0
+            ) {
+              loader.use.push({
+                loader: 'image-webpack-loader',
+                options: {},
+              });
+            }
+          });
+        }
+      });
+      // 添加压缩MP3等其他静态资源的配置
+      webpackConfig.plugins.push(
+        new CompressionPlugin({
+          test: /\.(mp3|jpg|png)$/, // 压缩MP3、JPG和PNG文件
+          algorithm: 'gzip',
+        }),
+      );
       if (env === 'production') {
         webpackConfig.output.publicPath = '/ant-myapp/';
         // 添加处理 favicon.ico 的配置
@@ -36,22 +63,17 @@ module.exports = {
             publicPath: '/ant-myapp/',
           },
         });
+        // 添加压缩JS的配置
+        webpackConfig.optimization.minimizer = [
+          new TerserPlugin({
+            terserOptions: {
+              compress: {
+                drop_console: true, // 去除console.log语句
+              },
+            },
+          }),
+        ];
       }
-      // 添加压缩静态资源的配置
-      webpackConfig.optimization.minimizer.push(
-        new TerserPlugin({
-          test: /\.(png|jpe?g|gif|mp3)$/i,
-          extractComments: false, // 避免提取注释
-          terserOptions: {
-            format: {
-              comments: false, // 不保留注释
-            },
-            compress: {
-              drop_console: true, // 去除 console.log
-            },
-          },
-        }),
-      );
       return webpackConfig;
     },
   },
