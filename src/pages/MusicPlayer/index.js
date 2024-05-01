@@ -112,6 +112,7 @@ const MusicPlayer = () => {
         <CustomerServiceFilled style={{ fontSize: '30px', color: '#6f91ee' }} />
       </div>
       <audio
+        preload='auto'
         ref={audioRef}
         src={songs.length && songs[currentSongIndex].url}
       ></audio>
