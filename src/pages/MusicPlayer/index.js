@@ -111,11 +111,13 @@ const MusicPlayer = () => {
         bro,放轻松{' '}
         <CustomerServiceFilled style={{ fontSize: '30px', color: '#6f91ee' }} />
       </div>
-      <audio
-        preload='auto'
-        ref={audioRef}
-        src={songs.length && songs[currentSongIndex].url}
-      ></audio>
+      <audio preload='auto' ref={audioRef}>
+        <source
+          src={songs.length && songs[currentSongIndex].url}
+          type='audio/mpeg'
+        />
+        Your browser does not support the audio element.
+      </audio>
       {songs.length && (
         <List
           dataSource={songs.length && songs}
