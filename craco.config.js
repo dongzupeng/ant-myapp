@@ -1,5 +1,6 @@
 const path = require('path');
 const CracoLessPlugin = require('craco-less');
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
   plugins: [
@@ -36,6 +37,21 @@ module.exports = {
           },
         });
       }
+      // 添加压缩静态资源的配置
+      webpackConfig.optimization.minimizer.push(
+        new TerserPlugin({
+          test: /\.(png|jpe?g|gif|mp3)$/i,
+          extractComments: false, // 避免提取注释
+          terserOptions: {
+            format: {
+              comments: false, // 不保留注释
+            },
+            compress: {
+              drop_console: true, // 去除 console.log
+            },
+          },
+        }),
+      );
       return webpackConfig;
     },
   },

@@ -1,1 +1,1 @@
-## 使用技术React + React-toolkit + axios + ant-Design + less + craco
+## 使用技术React + Reduxjs/Toolkit + Axios + Ant-Design + Less + craco
