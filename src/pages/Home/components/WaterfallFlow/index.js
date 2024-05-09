@@ -6,11 +6,25 @@ const WaterfallFlow = ({ PAGE_SIZE = 15 }) => {
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [page, setPage] = useState(1);
+  // 随机图片type
+  const typeList = [
+    'animal',
+    'beauty',
+    'car',
+    'comic',
+    'food',
+    'game',
+    'movie',
+    'person',
+    'phone',
+    'scenery',
+  ];
+  const type = typeList[Math.floor(Math.random() * 10)];
 
   // 加载更多数据
   const loadMore = () => {
     const params = {
-      type: 'beauty',
+      type,
       page,
       size: PAGE_SIZE,
     };

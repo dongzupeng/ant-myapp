@@ -7,15 +7,16 @@
     &__items {
         img:hover {
             transform: scale(1.1);
+            transition: all 0.2s ease-in;
             z-index: 2;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
             filter: grayscale(0);
         }
     }
 
-    &__items:last-child {
-        margin-bottom: 100px;
-    }
+    // &__items:last-child {
+    //     margin-bottom: 100px;
+    // }
 }
 
 .polaroid {
@@ -28,7 +29,7 @@
 
     &__content {
 
-        &-image {
+        &_image {
             height: 350px;
             width: 100%;
             overflow: hidden;
@@ -41,7 +42,7 @@
             }
         }
 
-        &-caption {
+        &_caption {
             display: flex;
             justify-content: center;
             align-items: center;

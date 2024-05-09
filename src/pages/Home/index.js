@@ -3,7 +3,7 @@ import WaterfallFlow from '@/pages/Home/components/WaterfallFlow';
 const Home = () => {
   return (
     <div className='img-box'>
-      <h1>美女壁纸</h1>
+      <h1 style={{ marginBottom: '10px' }}>Beautiful wallpaper</h1>
       <WaterfallFlow />
     </div>
   );

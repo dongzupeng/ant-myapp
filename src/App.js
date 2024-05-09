@@ -10,7 +10,7 @@ function App() {
     textAlign: 'center',
     fontSize: 40,
     bottom: 40,
-    right: -40,
+    right: -50,
   };
   return (
     <div className='App'>

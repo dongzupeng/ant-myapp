@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { Dropdown, Modal } from 'antd';
-import { ExclamationCircleOutlined } from '@ant-design/icons';
+import {
+  ExclamationCircleOutlined,
+  HomeFilled,
+  PictureFilled,
+} from '@ant-design/icons';
 import { useNavigate, Outlet } from 'react-router-dom';
 import { removeCache } from '@/utils/tokenStorage';
 import './index.less';
@@ -29,8 +33,8 @@ function Layout() {
     }
   };
   const links = [
-    { url: '/home', text: 'Home' },
-    { url: '/home/imageslider', text: 'ImageSlider' },
+    { url: '/home', text: 'Home', icon: <HomeFilled /> },
+    { url: '/home/imageslider', text: 'ImageSlider', icon: <PictureFilled /> },
   ];
   // 退出登录
   const confirm = () => {
@@ -57,11 +61,11 @@ function Layout() {
         <Dropdown menu={{ items, onClick }} placement='bottom' arrow>
           <img className='avatar' src={imgUrl} alt='' />
         </Dropdown>
+        {/* 导航 */}
+        <Sidebar links={links}></Sidebar>
       </header>
       <div className='content'>
-        <nav className='sidebar'>
-          {/* 侧边栏组件 */}
-          <Sidebar links={links}></Sidebar>
+        <nav>
           <MusicPlayer open={open} setOpen={setOpen}></MusicPlayer>
         </nav>
         <main className='main-content'>

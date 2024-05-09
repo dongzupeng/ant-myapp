@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './Sidebar.less';
+import styles from './index.module.less';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 const Sidebar = ({ links }) => {
@@ -12,26 +12,25 @@ const Sidebar = ({ links }) => {
     // 解决刷新页面后，activeItem不显示的问题
     toggleSidebar(links.find((link) => link.url === path));
   }, []);
-  // 切换侧边栏
+  //   切换侧边栏
   const toggleSidebar = (link) => {
     setActiveItem(link.text);
     navigate(link.url);
   };
   return (
-    <div className='sidebar'>
-      <div className='toggle-btn'>
-        <ul className='links'>
-          {links.map((link) => (
-            <li
-              key={link.text}
-              className={`${activeItem === link.text ? 'open' : ''}`}
-              onClick={() => toggleSidebar(link)}
-            >
-              <span>{link.text}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
+    <div className={styles.container}>
+      <nav className={styles.menu}>
+        {links.map((link) => (
+          <div
+            key={link.text}
+            onClick={() => toggleSidebar(link)}
+            className={`${styles.menu_item} ${activeItem === link.text ? `${styles.menu_item_active}` : ''}`}
+          >
+            <span className={styles.material_icons}>{link.icon}</span>
+            <span className={styles.menu_item_label}>{link.text}</span>
+          </div>
+        ))}
+      </nav>
     </div>
   );
 };
