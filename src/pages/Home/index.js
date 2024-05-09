@@ -1,10 +1,13 @@
 import React from 'react';
-import WaterfallFlow from '@/pages/Home/components/WaterfallFlow';
+// import WaterfallFlow from '@/pages/Home/components/WaterfallFlow';
+import ImageMasonry from '@/pages/Home/components/Wallpaper';
+
 const Home = () => {
   return (
-    <div className='img-box'>
+    <div>
       <h1 style={{ marginBottom: '10px' }}>Beautiful wallpaper</h1>
-      <WaterfallFlow />
+      {/* <WaterfallFlow /> */}
+      <ImageMasonry />
     </div>
   );
 };
