@@ -5,7 +5,9 @@ const useSongs = () => {
   console.log(musicFiles);
   musicFiles.keys().forEach((key) => {
     const title = key.split('/')[1].replace('.mp3', '');
+    const name = key.split('-')[1].replace('.mp3', '');
     songs.push({
+      name,
       title,
       url: `music/${key}`,
     });

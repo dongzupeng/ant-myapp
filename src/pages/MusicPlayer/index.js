@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import useSongs from './useSongs.js';
-import { Button, List } from 'antd';
+import MusicCard from '@/pages/MusicPlayer/musicCard';
 // import { useLocation } from 'react-router-dom';
 import './index.less';
 import {
@@ -31,11 +31,11 @@ const MusicPlayer = () => {
     audioRef.current.pause();
   };
   // 播放下一首
-  const playNextSong = () => {
+  const playNextSong = async () => {
     const nextIndex = (currentSongIndex + 1) % songs.length;
     setCurrentSongIndex(nextIndex);
     audioRef.current.src = songs[nextIndex].url;
-    audioRef.current.load();
+    await audioRef.current.load();
     audioRef.current.addEventListener('canplay', () => {
       // 当资源可以播放时，开始播放
       playSong();
@@ -81,7 +81,8 @@ const MusicPlayer = () => {
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.addEventListener('ended', () => {
-        audioRef.current.src = songs[currentSongIndex].url;
+        // console.log(songs[currentSongIndex].url, 'songs[currentSongIndex].url');
+        // audioRef.current.src = songs[currentSongIndex].url;
         handleSongEnded();
       });
     }
@@ -119,18 +120,14 @@ const MusicPlayer = () => {
         Your browser does not support the audio element.
       </audio>
       {songs.length && (
-        <List
-          dataSource={songs.length && songs}
-          renderItem={(song, index) => (
-            <List.Item
-              onClick={() => handleListItemClick(index)}
-              className={index === currentSongIndex ? 'active' : ''}
-            >
-              {songs.length && song.title}
-            </List.Item>
-          )}
+        <MusicCard
+          songs={songs}
+          isPlaying={isPlaying}
+          currentSongIndex={currentSongIndex}
+          handleListItemClick={handleListItemClick}
         />
       )}
+
       <h2 style={{ textAlign: 'center' }}>
         {songs.length && songs[currentSongIndex].title}
       </h2>
@@ -152,18 +149,23 @@ const MusicPlayer = () => {
       <div
         style={{
           display: 'flex',
-          justifyContent: 'center',
+          width: '300px',
+          justifyContent: 'space-around',
           alignItems: 'center',
           marginBottom: '20px',
+          fontSize: '26px',
+          color: '#6f91ee',
+          textAlign: 'center',
+          margin: '0 auto',
         }}
       >
-        <Button icon={<StepBackwardOutlined />} onClick={playPreviousSong} />
+        <StepBackwardOutlined onClick={playPreviousSong} />
         {isPlaying ? (
-          <Button icon={<PauseCircleOutlined />} onClick={pauseSong} />
+          <PauseCircleOutlined onClick={pauseSong} />
         ) : (
-          <Button icon={<PlayCircleOutlined />} onClick={playSong} />
+          <PlayCircleOutlined onClick={playSong} />
         )}
-        <Button icon={<StepForwardOutlined />} onClick={playNextSong} />
+        <StepForwardOutlined onClick={playNextSong} />
       </div>
     </div>
   );
