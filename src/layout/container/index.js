@@ -8,7 +8,6 @@ import {
 import { useNavigate, Outlet } from 'react-router-dom';
 import { removeCache } from '@/utils/tokenStorage';
 import './index.less';
-import imgUrl from '@/assets/images/avatar.jpg';
 import Sidebar from '@/layout/Sidebar';
 import MusicPlayer from '@/layout/Drawer';
 // import Test from '@/components/test.js';
@@ -59,7 +58,11 @@ function Layout() {
       <header className='header'>
         <div className='text'>头文字D的秘密花园</div>
         <Dropdown menu={{ items, onClick }} placement='bottom' arrow>
-          <img className='avatar' src={imgUrl} alt='' />
+          <img
+            className='avatar'
+            src='https://pic.netbian.com/uploads/allimg/220104/234553-1641311153631c.jpg?w=162&auto=format'
+            alt=''
+          />
         </Dropdown>
         {/* 导航 */}
         <Sidebar links={links}></Sidebar>

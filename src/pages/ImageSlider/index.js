@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Image } from 'antd';
 import { getImageList } from '@/api/getImages';
 import styles from './index.module.less';
 
@@ -47,7 +46,13 @@ const ImageSlider = () => {
           >
             <div className={styles.polaroid__content}>
               <div className={styles.polaroid__content_image}>
-                <Image src={item.url} alt={item.title} />
+                <img
+                  src={item.url}
+                  alt={item.title}
+                  onClick={() => {
+                    window.open(item.url);
+                  }}
+                />
               </div>
               <div className={styles.polaroid__content_caption}>
                 <p>{item.title}</p>

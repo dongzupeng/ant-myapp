@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Image } from 'antd';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Masonry from '@mui/lab/Masonry';
@@ -12,28 +11,14 @@ const Label = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(0.5),
   textAlign: 'center',
   color: theme.palette.text.secondary,
-  borderBottomLeftRadius: 0,
-  borderBottomRightRadius: 0,
+  borderTopLeftRadius: 0,
+  borderTopRightRadius: 0,
 }));
 
-export default function ImageMasonry() {
+function ImageMasonry() {
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [page, setPage] = useState(1);
-  // 随机图片type
-  //   const typeList = [
-  //     'animal',
-  //     'beauty',
-  //     'car',
-  //     'comic',
-  //     'food',
-  //     'game',
-  //     'movie',
-  //     'person',
-  //     'phone',
-  //     'scenery',
-  //   ];
-  //   const type = typeList[Math.floor(Math.random() * 10)];
 
   // 加载更多数据
   const loadMore = () => {
@@ -55,10 +40,6 @@ export default function ImageMasonry() {
         setIsLoading(false);
       });
   };
-  // 初始加载数据
-  useEffect(() => {
-    loadMore();
-  }, []);
   // 监听滚动事件，加载更多
   useEffect(() => {
     const handleScroll = () => {
@@ -75,19 +56,27 @@ export default function ImageMasonry() {
       window.removeEventListener('scroll', handleScroll);
     };
   }, [isLoading, items]);
+  // 初始加载数据
+  useEffect(() => {
+    loadMore();
+  }, []);
   return (
     <Box sx={{ width: '100%', minHeight: 300 }}>
       <Masonry columns={3} spacing={2}>
         {items.map((item, index) => (
           <div key={index}>
-            <Image
+            <img
               srcSet={`${item.url}?w=162&auto=format&dpr=2 2x`}
               src={`${item.url}?w=162&auto=format`}
               alt={item.title}
               loading='lazy'
-              placeholder={true}
+              // 预览大图
+              onClick={() => {
+                window.open(item.url, '_blank');
+              }}
               style={{
-                borderRadius: 4,
+                borderTopRightRadius: 4,
+                borderTopLeftRadius: 4,
                 display: 'block',
                 width: '100%',
               }}
@@ -99,3 +88,6 @@ export default function ImageMasonry() {
     </Box>
   );
 }
+
+const ImageMasonryMemo = React.memo(ImageMasonry);
+export default ImageMasonryMemo;

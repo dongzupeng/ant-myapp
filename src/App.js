@@ -5,12 +5,13 @@ import { Outlet } from 'react-router-dom';
 
 function App() {
   const style = {
-    position: 'relative',
+    position: 'absolute',
     lineHeight: '40px',
     textAlign: 'center',
     fontSize: 40,
     bottom: 40,
     right: -50,
+    zIndex: 2,
   };
   return (
     <div className='App'>
