@@ -31,26 +31,34 @@ const MusicPlayer = () => {
     audioRef.current.pause();
   };
   // 播放下一首
-  const playNextSong = async () => {
-    const nextIndex = (currentSongIndex + 1) % songs.length;
-    setCurrentSongIndex(nextIndex);
-    audioRef.current.src = songs[nextIndex].url;
-    await audioRef.current.load();
-    audioRef.current.addEventListener('canplay', () => {
-      // 当资源可以播放时，开始播放
-      playSong();
-    });
+  const playNextSong = () => {
+    try {
+      const nextIndex = (currentSongIndex + 1) % songs.length;
+      setCurrentSongIndex(nextIndex);
+      audioRef.current.src = songs[nextIndex]?.url;
+      audioRef.current.load();
+      audioRef.current.addEventListener('canplay', () => {
+        // 当资源可以播放时，开始播放
+        playSong();
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
   // 播放上一首
   const playPreviousSong = () => {
-    const prevIndex = (currentSongIndex - 1 + songs.length) % songs.length;
-    setCurrentSongIndex(prevIndex);
-    audioRef.current.src = songs[prevIndex].url;
-    audioRef.current.load();
-    audioRef.current.addEventListener('canplay', () => {
-      // 当资源可以播放时，开始播放
-      playSong();
-    });
+    try {
+      const prevIndex = (currentSongIndex - 1 + songs.length) % songs.length;
+      setCurrentSongIndex(prevIndex);
+      audioRef.current.src = songs[prevIndex]?.url;
+      audioRef.current.load();
+      audioRef.current.addEventListener('canplay', () => {
+        // 当资源可以播放时，开始播放
+        playSong();
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
   // 点击列表项播放歌曲
   const handleListItemClick = (index) => {

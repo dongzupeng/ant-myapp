@@ -13,6 +13,7 @@ const DrawerMusic = ({ open, setOpen }) => {
         size='large'
         open={open}
         onClose={closeDrawer}
+        getContainer={() => document.getElementById('root')}
       >
         <MusicPlayer></MusicPlayer>
       </Drawer>

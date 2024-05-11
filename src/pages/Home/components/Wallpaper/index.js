@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Masonry from '@mui/lab/Masonry';
 import { styled } from '@mui/material/styles';
@@ -61,7 +60,7 @@ function ImageMasonry() {
     loadMore();
   }, []);
   return (
-    <Box sx={{ width: '100%', minHeight: 300 }}>
+    <div style={{ textAlign: 'center', width: '100%' }}>
       <Masonry columns={3} spacing={2}>
         {items.map((item, index) => (
           <div key={index}>
@@ -69,7 +68,7 @@ function ImageMasonry() {
               srcSet={`${item.url}?w=162&auto=format&dpr=2 2x`}
               src={`${item.url}?w=162&auto=format`}
               alt={item.title}
-              loading='lazy'
+              // loading='lazy'
               // 预览大图
               onClick={() => {
                 window.open(item.url, '_blank');
@@ -79,13 +78,15 @@ function ImageMasonry() {
                 borderTopLeftRadius: 4,
                 display: 'block',
                 width: '100%',
+                textAlign: 'center',
+                cursor: 'pointer',
               }}
             />
             <Label>{item.title}</Label>
           </div>
         ))}
       </Masonry>
-    </Box>
+    </div>
   );
 }
 

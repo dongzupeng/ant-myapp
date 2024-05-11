@@ -43,6 +43,7 @@ function Layout() {
       content: '确认将离开系统！',
       okText: '确认',
       cancelText: '取消',
+      getContainer: () => document.getElementById('root'),
       onOk() {
         console.log('确认');
         navigate('/login');
@@ -67,10 +68,10 @@ function Layout() {
         {/* 导航 */}
         <Sidebar links={links}></Sidebar>
       </header>
+      <nav>
+        <MusicPlayer open={open} setOpen={setOpen}></MusicPlayer>
+      </nav>
       <div className='content'>
-        <nav>
-          <MusicPlayer open={open} setOpen={setOpen}></MusicPlayer>
-        </nav>
         <main className='main-content'>
           <Outlet></Outlet>
         </main>
