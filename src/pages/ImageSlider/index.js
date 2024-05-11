@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Image } from 'antd';
 import { getImageList } from '@/api/getImages';
 import styles from './index.module.less';
 
@@ -38,29 +39,29 @@ const ImageSlider = () => {
   }, []);
   return (
     <div className={styles.container}>
-      {imageList.map((item, index) => (
-        <div className={styles.container__items} key={item.id}>
-          <div
-            className={`${styles.polaroid} ${styles.one}`}
-            style={{ transform: `rotate(${rotations[index]}deg)` }} // 应用旋转角度
-          >
-            <div className={styles.polaroid__content}>
-              <div className={styles.polaroid__content_image}>
-                <img
-                  src={item.url}
-                  alt={item.title}
-                  onClick={() => {
-                    window.open(item.url);
-                  }}
-                />
-              </div>
-              <div className={styles.polaroid__content_caption}>
-                <p>{item.title}</p>
+      <Image.PreviewGroup
+        preview={{
+          getContainer: () => document.getElementById('root'),
+        }}
+      >
+        {imageList.map((item, index) => (
+          <div className={styles.container__items} key={item.id}>
+            <div
+              className={`${styles.polaroid} ${styles.one}`}
+              style={{ transform: `rotate(${rotations[index]}deg)` }} // 应用旋转角度
+            >
+              <div className={styles.polaroid__content}>
+                <div className={styles.polaroid__content_image}>
+                  <Image src={item.url} alt={item.title} loading='lazy' />
+                </div>
+                <div className={styles.polaroid__content_caption}>
+                  <p>{item.title}</p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </Image.PreviewGroup>
     </div>
   );
 };

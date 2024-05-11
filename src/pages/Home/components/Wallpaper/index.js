@@ -3,6 +3,7 @@ import Paper from '@mui/material/Paper';
 import Masonry from '@mui/lab/Masonry';
 import { styled } from '@mui/material/styles';
 import { getImageList } from '@/api/getImages';
+import { Image } from 'antd';
 
 const Label = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -62,29 +63,31 @@ function ImageMasonry() {
   return (
     <div style={{ textAlign: 'center', width: '100%' }}>
       <Masonry columns={3} spacing={2}>
-        {items.map((item, index) => (
-          <div key={index}>
-            <img
-              srcSet={`${item.url}?w=162&auto=format&dpr=2 2x`}
-              src={`${item.url}?w=162&auto=format`}
-              alt={item.title}
-              // loading='lazy'
-              // 预览大图
-              onClick={() => {
-                window.open(item.url, '_blank');
-              }}
-              style={{
-                borderTopRightRadius: 4,
-                borderTopLeftRadius: 4,
-                display: 'block',
-                width: '100%',
-                textAlign: 'center',
-                cursor: 'pointer',
-              }}
-            />
-            <Label>{item.title}</Label>
-          </div>
-        ))}
+        <Image.PreviewGroup
+          preview={{
+            getContainer: () => document.getElementById('root'),
+          }}
+        >
+          {items.map((item, index) => (
+            <div key={index}>
+              <Image
+                srcSet={`${item.url}?w=162&auto=format&dpr=2 2x`}
+                src={`${item.url}?w=162&auto=format`}
+                alt={item.title}
+                loading='lazy'
+                style={{
+                  borderTopRightRadius: 4,
+                  borderTopLeftRadius: 4,
+                  display: 'block',
+                  width: '100%',
+                  textAlign: 'center',
+                  cursor: 'pointer',
+                }}
+              />
+              <Label>{item.title}</Label>
+            </div>
+          ))}
+        </Image.PreviewGroup>
       </Masonry>
     </div>
   );

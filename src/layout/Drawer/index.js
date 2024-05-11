@@ -14,6 +14,11 @@ const DrawerMusic = ({ open, setOpen }) => {
         open={open}
         onClose={closeDrawer}
         getContainer={() => document.getElementById('root')}
+        style={{
+          minWidth: '100%',
+          height: '100%',
+          overflowY: 'auto',
+        }}
       >
         <MusicPlayer></MusicPlayer>
       </Drawer>
