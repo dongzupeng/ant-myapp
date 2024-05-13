@@ -135,10 +135,15 @@ const MusicPlayer = () => {
           handleListItemClick={handleListItemClick}
         />
       )}
-
-      <h2 style={{ textAlign: 'center' }}>
+      {/* 标题滚动 */}
+      <div className='lyrics-container '>
+        <h1 className='lyrics-title'>
+          {songs.length && songs[currentSongIndex].title}
+        </h1>
+      </div>
+      {/* <h2 style={{ textAlign: 'center' }}>
         {songs.length && songs[currentSongIndex].title}
-      </h2>
+      </h2> */}
       <div style={{ width: '100%', backgroundColor: '#ddd', height: '5px' }}>
         <div
           id='progress-bar'

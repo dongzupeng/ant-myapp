@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './index.module.less';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-const Sidebar = ({ links }) => {
+const Sidebar = ({ links, setOpen }) => {
   const [activeItem, setActiveItem] = useState('Home');
   const navigate = useNavigate();
   const location = useLocation();
@@ -15,6 +15,10 @@ const Sidebar = ({ links }) => {
   //   切换侧边栏
   const toggleSidebar = (link) => {
     setActiveItem(link.text);
+    if (link.url === '/music') {
+      setOpen(true);
+      return;
+    }
     navigate(link.url);
   };
   return (

@@ -8,16 +8,46 @@
     .music-title {
         text-align: center;
         color: #6f91ee;
-        font-weight: bold;
-        font-size: 30px;
-        
+        font-size: 28px;
+    }
+
+    /* 设置容器样式 */
+    .lyrics-container {
+        margin: 0 auto;
+        width: 200px;
+        overflow: hidden;
+
+        /* 设置标题样式 */
+        .lyrics-title {
+            text-align: center;
+            animation: scroll 6s linear infinite;
+            /* 滚动动画，10秒钟完成一次滚动，线性速度，无限循环 */
+            white-space: nowrap;
+            color: #6f91ee;
+            /* 防止标题换行 */
+        }
+
+        /* 定义滚动动画 */
+        @keyframes scroll {
+            from {
+                transform: translateX(100%);
+                /* 初始位置：偏移整个容器宽度 */
+            }
+
+            to {
+                transform: translateX(-100%);
+                /* 终点位置：偏移整个容器宽度的负值 */
+            }
+        }
     }
 }
+
 .music-item {
     border-radius: 5px;
     background-color: #f0f0f0;
     // padding: 10px;
 }
+
 .active {
     background-color: rgba(111, 143, 237, 0.4);
     color: #f0f0f0;

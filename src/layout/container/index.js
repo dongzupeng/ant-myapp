@@ -4,6 +4,7 @@ import {
   ExclamationCircleOutlined,
   HomeFilled,
   PictureFilled,
+  CustomerServiceOutlined,
 } from '@ant-design/icons';
 import { useNavigate, Outlet } from 'react-router-dom';
 import { removeCache } from '@/utils/tokenStorage';
@@ -34,6 +35,7 @@ function Layout() {
   const links = [
     { url: '/home', text: 'Home', icon: <HomeFilled /> },
     { url: '/home/imageslider', text: 'ImageSlider', icon: <PictureFilled /> },
+    { url: '/music', text: 'Music', icon: <CustomerServiceOutlined /> },
   ];
   // 退出登录
   const confirm = () => {
@@ -66,7 +68,7 @@ function Layout() {
           />
         </Dropdown>
         {/* 导航 */}
-        <Sidebar links={links}></Sidebar>
+        <Sidebar links={links} setOpen={setOpen}></Sidebar>
       </header>
       <nav>
         <MusicPlayer open={open} setOpen={setOpen}></MusicPlayer>
