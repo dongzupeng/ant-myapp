@@ -5,6 +5,7 @@ import {
   HomeFilled,
   PictureFilled,
   CustomerServiceOutlined,
+  YoutubeFilled,
 } from '@ant-design/icons';
 import { useNavigate, Outlet } from 'react-router-dom';
 import { removeCache } from '@/utils/tokenStorage';
@@ -35,6 +36,7 @@ function Layout() {
   const links = [
     { url: '/home', text: 'Home', icon: <HomeFilled /> },
     { url: '/home/imageslider', text: 'ImageSlider', icon: <PictureFilled /> },
+    { url: '/home/video', text: 'Video', icon: <YoutubeFilled /> },
     { url: '/music', text: 'Music', icon: <CustomerServiceOutlined /> },
   ];
   // 退出登录
