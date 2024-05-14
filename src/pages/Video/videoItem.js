@@ -1,27 +1,30 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 // import XGPlayerComponent from './XGPlayerComponent.js';
-import './index.less';
+import styles from './index.module.less';
 const VideoItem = ({ items }) => {
   const navigate = useNavigate();
-  const handelClick = (id) => {
-    navigate(`/home/video/desc/${id}`);
+  const handelClick = (item) => {
+    // 跳转传url
+    navigate(`/home/video/desc`, {
+      state: { id: item.id, url: item.playUrl },
+    });
   };
   return items.map((item) => {
     return (
-      <div className='card' key={item.id}>
+      <div className={styles.card} key={item.id}>
         {/* 显示封面 */}
         <div
-          className='card__view'
+          className={styles.card__view}
           style={{
             backgroundImage: `url(${item.coverUrl})`,
             backgroundSize: 'cover',
           }}
-          onClick={() => handelClick(item.id)}
+          onClick={() => handelClick(item)}
         >
-          <div className='card__view__data'>
-            <p className='card__view__preview'>Preview</p>
-            <p className='card__play__icon'>
+          <div className={styles.card__view__data}>
+            <p className={styles.card__view__preview}>Preview</p>
+            <p className={styles.card__play__icon}>
               <svg width='8px' height='8px' viewBox='-0.5 0 7 7' version='1.1'>
                 <g
                   id='Page-1'
@@ -46,26 +49,26 @@ const VideoItem = ({ items }) => {
                 </g>
               </svg>
             </p>
-            <p className='card__lenght'>{item.duration}</p>
+            <p className={styles.card__lenght}>{item.duration}</p>
           </div>
         </div>
-        <div className='card__content'>
-          <p className='channel__video__name'>{item.title}</p>
-          <div className='channel__data'>
+        <div className={styles.card__content}>
+          <p className={styles.channel__video__name}>{item.title}</p>
+          <div className={styles.channel__data}>
             <div
-              className='channel__img'
+              className={styles.channel__img}
               style={{
                 backgroundImage: `url(${item.userPic})`,
                 backgroundSize: 'cover',
               }}
             ></div>
-            <div className='channel__data__text'>
-              <p className='channel__name'>{item.userName}</p>
-              <div className='channel__subdata'>
-                <p className='channel__views'>
+            <div className={styles.channel__data__text}>
+              <p className={styles.channel__name}>{item.userName}</p>
+              <div className={styles.channel__subdata}>
+                <p className={styles.channel__views}>
                   {Math.ceil(Math.random() * 1000)} Views
                 </p>
-                <p className='channel__date'>
+                <p className={styles.channel__date}>
                   {Math.ceil(Math.random() * 12)}months ago
                 </p>
               </div>

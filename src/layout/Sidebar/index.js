@@ -14,12 +14,14 @@ const Sidebar = ({ links, setOpen }) => {
   }, []);
   //   切换侧边栏
   const toggleSidebar = (link) => {
-    setActiveItem(link.text);
-    if (link.url === '/music') {
-      setOpen(true);
-      return;
+    if (link) {
+      setActiveItem(link.text);
+      if (link.url === '/music') {
+        setOpen(true);
+        return;
+      }
+      navigate(link.url);
     }
-    navigate(link.url);
   };
   return (
     <div className={styles.container}>

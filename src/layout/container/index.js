@@ -17,7 +17,7 @@ import MusicPlayer from '@/layout/Drawer';
 const items = [
   { label: '退出登录', key: 'logout' }, // 菜单项务必填写 key
   { label: '设置', key: 'setting' },
-  { label: '听听音乐吧', key: 'music' },
+  { label: '音乐吧', key: 'music' },
   { label: '个人中心', key: 'center' },
 ];
 

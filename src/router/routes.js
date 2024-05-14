@@ -64,7 +64,7 @@ const routes = [
             ),
           },
           {
-            path: '/home/video/desc/:url',
+            path: '/home/video/desc',
             element: (
               <Suspense fallback={<Skeleton />}>
                 {<PrivateRoute element={<VideoDesc />} />}
