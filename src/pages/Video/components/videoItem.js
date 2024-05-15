@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 // import XGPlayerComponent from './XGPlayerComponent.js';
-import styles from './index.module.less';
+import styles from './videoItem.module.less';
 const VideoItem = ({ items }) => {
   const navigate = useNavigate();
   const handelClick = (item) => {

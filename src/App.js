@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { BackTop } from 'antd';
 import { UpCircleFilled } from '@ant-design/icons';
 import { Outlet } from 'react-router-dom';
+import Loading from './components/Loading';
 
 function App() {
   const style = {
@@ -20,7 +21,9 @@ function App() {
           <UpCircleFilled />
         </div>
       </BackTop>
-      <Outlet></Outlet>
+      <Suspense fallback={<Loading />}>
+        <Outlet></Outlet>
+      </Suspense>
     </div>
   );
 }

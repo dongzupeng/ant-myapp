@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import { Dropdown, Modal } from 'antd';
+import Loading from '@/components/Loading';
 import {
   ExclamationCircleOutlined,
   HomeFilled,
@@ -77,7 +78,9 @@ function Layout() {
       </nav>
       <div className='content'>
         <main className='main-content'>
-          <Outlet></Outlet>
+          <Suspense fallback={<Loading />}>
+            <Outlet></Outlet>
+          </Suspense>
         </main>
       </div>
       <footer className='footer'>

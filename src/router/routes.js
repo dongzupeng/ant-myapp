@@ -1,8 +1,10 @@
-import React, { Suspense } from 'react';
-import { Skeleton, message } from 'antd';
+import React from 'react';
+import { message } from 'antd';
+// import Loading from '@/components/Loading';
 import { getCache } from '@/utils/tokenStorage.js';
 import App from '../App.js';
 import { Navigate } from 'react-router-dom';
+import Login from '@/pages/Login';
 // 判断系统是否登录
 const isAuthenticated = () => {
   // 假设这里是检查用户认证 token 的函数，返回 true 表示用户已登录，否则返回 false
@@ -18,13 +20,14 @@ const PrivateRoute = ({ element }) => {
     <Navigate replace to='/login' /> // 如果未登录，则重定向到登录页面
   );
 };
+// login 页面不使用懒加载
+// const Login = import('@/pages/Login');
 
-const Login = React.lazy(() => import('@/pages/Login'));
 const Layout = React.lazy(() => import('@/layout/container/index.js'));
 const Home = React.lazy(() => import('@/pages/Home/index.js'));
 const Video = React.lazy(() => import('@/pages/Video/index.js'));
 const VideoDesc = React.lazy(
-  () => import('@/pages/Video/XGPlayerComponent.js'),
+  () => import('@/pages/Video/components/XGPlayerComponent.js'),
 );
 const ImageSlider = React.lazy(() => import('@/pages/ImageSlider'));
 const NotFoundPage = React.lazy(() => import('@/components/NotFound/index.js'));
@@ -41,43 +44,23 @@ const routes = [
     children: [
       {
         path: '/home',
-        element: (
-          <Suspense fallback={<Skeleton />}>
-            {<PrivateRoute element={<Layout />} />}
-          </Suspense>
-        ),
+        element: <PrivateRoute element={<Layout />} />,
         children: [
           {
             path: '/home',
-            element: (
-              <Suspense fallback={<Skeleton />}>
-                {<PrivateRoute element={<Home />} />}
-              </Suspense>
-            ),
+            element: <PrivateRoute element={<Home />} />,
           },
           {
             path: '/home/video',
-            element: (
-              <Suspense fallback={<Skeleton />}>
-                {<PrivateRoute element={<Video />} />}
-              </Suspense>
-            ),
+            element: <PrivateRoute element={<Video />} />,
           },
           {
             path: '/home/video/desc',
-            element: (
-              <Suspense fallback={<Skeleton />}>
-                {<PrivateRoute element={<VideoDesc />} />}
-              </Suspense>
-            ),
+            element: <PrivateRoute element={<VideoDesc />} />,
           },
           {
             path: '/home/imageslider',
-            element: (
-              <Suspense fallback={<Skeleton />}>
-                {<PrivateRoute element={<ImageSlider />} />}
-              </Suspense>
-            ),
+            element: <PrivateRoute element={<ImageSlider />} />,
           },
         ],
       },
@@ -85,11 +68,7 @@ const routes = [
   },
   {
     path: '/login',
-    element: (
-      <Suspense fallback={<Skeleton />}>
-        <Login />
-      </Suspense>
-    ),
+    element: <Login />,
   },
   { path: '*', element: <NotFoundPage /> },
 ];

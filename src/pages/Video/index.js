@@ -1,11 +1,11 @@
 // 创建video组件
 import React, { useEffect, useState } from 'react';
 import { getVideoList } from '@/api/getVideo';
-import VideoItem from './videoItem';
+import VideoItem from './components/videoItem';
 const VideoList = () => {
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [page, setPage] = useState(Math.ceil(Math.random() * 200));
+  const [page, setPage] = useState(1);
 
   // 加载更多数据
   const loadMore = () => {
