@@ -23,9 +23,11 @@ const PrivateRoute = ({ element }) => {
 // login 页面不使用懒加载
 // const Login = import('@/pages/Login');
 
-const Layout = React.lazy(() => import('@/layout/container/index.js'));
-const Home = React.lazy(() => import('@/pages/Home/index.js'));
-const Video = React.lazy(() => import('@/pages/Video/index.js'));
+const Layout = React.lazy(() => import('@/layout/container'));
+const Home = React.lazy(() => import('@/pages/Home'));
+const Video = React.lazy(() => import('@/pages/Video'));
+const User = React.lazy(() => import('@/pages/User'));
+
 const VideoDesc = React.lazy(
   () => import('@/pages/Video/components/XGPlayerComponent.js'),
 );
@@ -61,6 +63,10 @@ const routes = [
           {
             path: '/home/imageslider',
             element: <PrivateRoute element={<ImageSlider />} />,
+          },
+          {
+            path: '/home/user',
+            element: <PrivateRoute element={<User />} />,
           },
         ],
       },

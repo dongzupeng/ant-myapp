@@ -7,6 +7,7 @@ import {
   PictureFilled,
   CustomerServiceOutlined,
   YoutubeFilled,
+  UserOutlined,
 } from '@ant-design/icons';
 import { useNavigate, Outlet } from 'react-router-dom';
 import { removeCache } from '@/utils/tokenStorage';
@@ -19,7 +20,7 @@ const items = [
   { label: '退出登录', key: 'logout' }, // 菜单项务必填写 key
   { label: '设置', key: 'setting' },
   { label: '音乐吧', key: 'music' },
-  { label: '个人中心', key: 'center' },
+  { label: '个人中心', key: 'user' },
 ];
 
 function Layout() {
@@ -39,6 +40,7 @@ function Layout() {
     { url: '/home/imageslider', text: 'ImageSlider', icon: <PictureFilled /> },
     { url: '/home/video', text: 'Video', icon: <YoutubeFilled /> },
     { url: '/music', text: 'Music', icon: <CustomerServiceOutlined /> },
+    { url: '/home/user', text: 'User', icon: <UserOutlined /> },
   ];
   // 退出登录
   const confirm = () => {
