@@ -5,9 +5,9 @@
  */
 export function setCache(key, value) {
   if (value == undefined || value == null) {
-    window.sessionStorage.setItem(key, value);
+    window.localStorage.setItem(key, value);
   } else {
-    window.sessionStorage.setItem(key, JSON.stringify(value));
+    window.localStorage.setItem(key, JSON.stringify(value));
   }
 }
 /**
@@ -17,12 +17,12 @@ export function setCache(key, value) {
  */
 export function getCache(key) {
   if (
-    window.sessionStorage.getItem(key) == 'undefined' ||
-    window.sessionStorage.getItem(key) == null
+    window.localStorage.getItem(key) == 'undefined' ||
+    window.localStorage.getItem(key) == null
   ) {
     return undefined;
   }
-  return JSON.parse(window.sessionStorage.getItem(key));
+  return JSON.parse(window.localStorage.getItem(key));
 }
 /**
  * 移出
@@ -30,5 +30,5 @@ export function getCache(key) {
  * @returns
  */
 export function removeCache(key) {
-  return window.sessionStorage.removeItem(key);
+  return window.localStorage.removeItem(key);
 }

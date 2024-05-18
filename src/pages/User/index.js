@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { getUserInfo } from '@/api/getUser';
 import styles from './index.module.less';
 
 const User = () => {
@@ -203,6 +204,12 @@ const User = () => {
       )}
     </>
   );
+  useEffect(() => {
+    getUserInfo().then((res) => {
+      console.log(res);
+    });
+  }, []);
+
   return (
     <div className={styles.card} data-state='#about'>
       <div className={styles.card__header}>
