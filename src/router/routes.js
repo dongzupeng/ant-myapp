@@ -27,6 +27,7 @@ const Layout = React.lazy(() => import('@/layout/container'));
 const Home = React.lazy(() => import('@/pages/Home'));
 const Video = React.lazy(() => import('@/pages/Video'));
 const User = React.lazy(() => import('@/pages/User'));
+const ChatAI = React.lazy(() => import('@/pages/ChatAI'));
 
 const VideoDesc = React.lazy(
   () => import('@/pages/Video/components/XGPlayerComponent.js'),
@@ -67,6 +68,10 @@ const routes = [
           {
             path: '/home/user',
             element: <PrivateRoute element={<User />} />,
+          },
+          {
+            path: '/home/chatai',
+            element: <PrivateRoute element={<ChatAI />} />,
           },
         ],
       },

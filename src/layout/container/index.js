@@ -8,6 +8,7 @@ import {
   CustomerServiceOutlined,
   YoutubeFilled,
   UserOutlined,
+  RedditOutlined,
 } from '@ant-design/icons';
 import { useNavigate, Outlet } from 'react-router-dom';
 import { removeCache } from '@/utils/tokenStorage';
@@ -41,6 +42,7 @@ function Layout() {
     { url: '/home/video', text: 'Video', icon: <YoutubeFilled /> },
     { url: '/music', text: 'Music', icon: <CustomerServiceOutlined /> },
     { url: '/home/user', text: 'User', icon: <UserOutlined /> },
+    { url: '/home/chatAI', text: 'ChatAI', icon: <RedditOutlined /> },
   ];
   // 退出登录
   const confirm = () => {
