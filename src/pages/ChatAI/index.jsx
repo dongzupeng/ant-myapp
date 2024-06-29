@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Input } from 'antd';
 import axios from 'axios';
-import { marked } from 'marked';
 import styles from './index.module.less';
 
 const ChatAI = () => {
@@ -15,6 +14,7 @@ const ChatAI = () => {
   const [inputValue, setInputValue] = useState('');
   const [isThinking, setIsThinking] = useState(false); // 新增正在思考中的状态
 
+  const chatContentRef = useRef(null);
   const { Search } = Input;
 
   useEffect(() => {
@@ -32,6 +32,11 @@ const ChatAI = () => {
         setCurrentParagraphIndex((prevIndex) => prevIndex + 1);
         setCurrentCharIndex(0);
       }
+    }
+    // 在打字机效果结束后或任何您想要滚动到底部的时机
+    const scrollContainer = chatContentRef.current;
+    if (scrollContainer) {
+      scrollContainer.scrollTop = scrollContainer.scrollHeight;
     }
   }, [currentParagraphIndex, currentCharIndex, paragraphs]);
 
@@ -57,30 +62,33 @@ const ChatAI = () => {
     }
     // 调用answer函数以获取新的回答并开始打字机效果
     answer(value);
+    // 发送后滚动到底部
+    const scrollContainer = chatContentRef.current;
+    if (scrollContainer) {
+      scrollContainer.scrollTop = scrollContainer.scrollHeight;
+    }
   };
 
   const answer = (value) => {
     const params = {
-      prompt: value,
-      userId: '#/chat/1718264221941',
-      network: true,
-      system: '',
-      withoutContext: false,
-      stream: false,
+      key: 'c4db6e183893b44858fb84eb44636af9',
+      question: value,
+      uniqueid: 'baby',
+      mode: 1,
+      priv: 1,
+      restype: 1,
     };
     axios
       .request({
-        url: 'https://api.binjie.fun/api/generateStream?refer__1360=n40x0DcDg7e7wxYqGNueeqBIdxiq7IXUUAvdx',
+        url: 'https://apis.tianapi.com/robot/index',
         method: 'post',
         data: params,
-        responseType: 'text',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       })
       .then((res) => {
-        console.log(res);
-        const fetchedParagraphs = res.data;
-        // 使用 marked 将 Markdown 转换为 HTML
-        const htmlContent = marked(fetchedParagraphs);
-        setParagraphs(htmlContent);
+        console.log(res.data);
+        const fetchedParagraphs = res.data.result.reply;
+        setParagraphs(fetchedParagraphs);
         if (fetchedParagraphs.length > 0) {
           setIsThinking(false);
         }
@@ -96,7 +104,7 @@ const ChatAI = () => {
 
   return (
     <div className={styles.chatAI}>
-      <div className={styles.content}>
+      <div className={styles.content} ref={chatContentRef}>
         {/* 历史记录 */}
         {history.map((item, index) => (
           <div key={index} className={styles.historyItem}>
@@ -106,12 +114,9 @@ const ChatAI = () => {
         ))}
         {questionText && <div className={styles.question}>{questionText}</div>}
         {questionText && (
-          <div
-            className={styles.answer}
-            dangerouslySetInnerHTML={{
-              __html: isThinking ? '正在思考中...' : answerText,
-            }}
-          ></div>
+          <div className={styles.answer}>
+            {isThinking ? '正在思考中...' : answerText}
+          </div>
         )}
       </div>
 
