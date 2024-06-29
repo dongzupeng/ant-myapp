@@ -1,0 +1,43 @@
+.index_container__9IZVl {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.index_container__items__FxOHW {
+  margin: 0 20px;
+}
+.index_container__items__FxOHW img:hover {
+  transform: scale(1.1);
+  transition: all 0.2s ease-in;
+  z-index: 2;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+  filter: grayscale(0);
+}
+.index_polaroid__rT735 {
+  box-sizing: border-box;
+  margin: 20px;
+  width: 350px;
+  padding: 1rem;
+  box-shadow: 0 0.2rem 1.2rem rgba(0, 0, 0, 0.2);
+}
+.index_polaroid__content_image__b5oeV {
+  width: 100%;
+  overflow: hidden;
+}
+.index_polaroid__content_image__b5oeV > img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+}
+.index_polaroid__content_caption__sDhqc {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+  margin-top: 20px;
+}
+
+
+/*# sourceMappingURL=629.cdaf4574.chunk.css.map*/
