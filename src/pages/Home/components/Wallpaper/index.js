@@ -61,10 +61,11 @@ function ImageMasonry() {
           {items.map((item, index) => (
             <ImageListItem key={index}>
               <Image
-                srcSet={`${item.url}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                src={`${item.url}?w=248&fit=crop&auto=format`}
+                srcSet={`${item.url}`}
+                src={`${item.url}`}
                 alt={item.title}
                 loading='lazy'
+                placeholder
               />
               <ImageListItemBar position='top' title={item.title} />
             </ImageListItem>
