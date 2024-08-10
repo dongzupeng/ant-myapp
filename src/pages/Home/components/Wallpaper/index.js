@@ -1,19 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import Paper from '@mui/material/Paper';
-import Masonry from '@mui/lab/Masonry';
-import { styled } from '@mui/material/styles';
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
+import ImageListItemBar from '@mui/material/ImageListItemBar';
 import { getImageList } from '@/api/getImages';
 import { Image } from 'antd';
-
-const Label = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(0.5),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-  borderTopLeftRadius: 0,
-  borderTopRightRadius: 0,
-}));
 
 function ImageMasonry() {
   const [items, setItems] = useState([]);
@@ -62,33 +52,25 @@ function ImageMasonry() {
   }, []);
   return (
     <div style={{ textAlign: 'center', width: '100%' }}>
-      <Masonry columns={3} spacing={2}>
+      <ImageList variant='masonry' cols={3} gap={8}>
         <Image.PreviewGroup
           preview={{
             getContainer: () => document.getElementById('root'),
           }}
         >
           {items.map((item, index) => (
-            <div key={index}>
+            <ImageListItem key={index}>
               <Image
-                srcSet={`${item.url}?w=162&auto=format&dpr=2 2x`}
-                src={`${item.url}?w=162&auto=format`}
+                srcSet={`${item.url}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                src={`${item.url}?w=248&fit=crop&auto=format`}
                 alt={item.title}
                 loading='lazy'
-                style={{
-                  borderTopRightRadius: 4,
-                  borderTopLeftRadius: 4,
-                  display: 'block',
-                  width: '100%',
-                  textAlign: 'center',
-                  cursor: 'pointer',
-                }}
               />
-              <Label>{item.title}</Label>
-            </div>
+              <ImageListItemBar position='top' title={item.title} />
+            </ImageListItem>
           ))}
         </Image.PreviewGroup>
-      </Masonry>
+      </ImageList>
     </div>
   );
 }
