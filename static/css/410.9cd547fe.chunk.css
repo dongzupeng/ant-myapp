@@ -1,0 +1,154 @@
+.videoItem_card__3X4N8 {
+  --rounded: 20px;
+  --size: 270px;
+  width: var(--size);
+  height: calc(var(--size) - 10px);
+  border-radius: var(--rounded);
+  background: #fff;
+  position: relative;
+  overflow: hidden;
+  margin: 20px 10px;
+}
+.videoItem_card__view__SeU7j {
+  cursor: pointer;
+  position: absolute;
+  height: 55%;
+  left: 0;
+  top: 0;
+  right: 0;
+  margin: auto;
+  z-index: 1;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: #f0f0f0;
+}
+.videoItem_card__view__data__yBkpM {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 8px;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+.videoItem_card__view__data__yBkpM .videoItem_card__lenght__zX-SV,
+.videoItem_card__view__data__yBkpM .videoItem_card__play__icon__65hJ3,
+.videoItem_card__view__data__yBkpM .videoItem_card__view__preview__vA0n8 {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 5px;
+  border-radius: 6px;
+  font-size: 0.6em;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.7);
+}
+.videoItem_card__view__data__yBkpM .videoItem_card__play__icon__65hJ3 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 30px;
+}
+.videoItem_card__view__data__yBkpM .videoItem_card__view__preview__vA0n8 {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 900ms, transform 900ms;
+}
+.videoItem_card__content__9YKlj {
+  position: absolute;
+  z-index: 2;
+  width: 100%;
+  height: 40%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding-left: 9px;
+  padding-right: 9px;
+  color: #000;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.videoItem_card__content__9YKlj .videoItem_channel__video__name__L9Jmn {
+  padding: 10px 5px;
+  font-size: 0.8em;
+  margin-bottom: 10px;
+  max-height: 50%;
+  text-align: start;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: bold;
+  color: #000;
+}
+.videoItem_card__content__9YKlj .videoItem_channel__data__lVSs\+ {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.videoItem_card__content__9YKlj .videoItem_channel__data__lVSs\+ .videoItem_channel__img__GGvLl {
+  --size-channel: 35px;
+  --rounded: 50%;
+  --duration: 300ms;
+  min-width: var(--size-channel);
+  min-height: var(--size-channel);
+  border-radius: var(--rounded);
+  transition: transform var(--duration);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: #99cfff;
+}
+.videoItem_card__content__9YKlj .videoItem_channel__data__lVSs\+ .videoItem_channel__img__GGvLl:hover {
+  transform: scale(1.08);
+}
+.videoItem_card__content__9YKlj .videoItem_channel__data__lVSs\+ .videoItem_channel__data__text__i1anL {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+}
+.videoItem_card__content__9YKlj .videoItem_channel__data__lVSs\+ .videoItem_channel__data__text__i1anL .videoItem_channel__name__e-cy0 {
+  text-align: start;
+  font-size: 0.8em;
+  transition: color 400ms;
+}
+.videoItem_card__content__9YKlj .videoItem_channel__data__lVSs\+ .videoItem_channel__data__text__i1anL .videoItem_channel__subdata__T2NEq {
+  display: flex;
+  gap: 10px;
+}
+.videoItem_card__content__9YKlj .videoItem_channel__data__lVSs\+ .videoItem_channel__data__text__i1anL .videoItem_channel__subdata__T2NEq .videoItem_channel__views__LCmsF,
+.videoItem_card__content__9YKlj .videoItem_channel__data__lVSs\+ .videoItem_channel__data__text__i1anL .videoItem_channel__subdata__T2NEq .videoItem_channel__date__rqFMC {
+  font-size: 0.6em;
+}
+.videoItem_card__3X4N8::before {
+  --size: 100%;
+  --blur: 20px;
+  content: "";
+  position: absolute;
+  width: var(--size);
+  height: var(--size);
+  filter: blur(var(--blur));
+}
+.videoItem_card__3X4N8::after {
+  --size: 100%;
+  content: "";
+  position: absolute;
+  width: var(--size);
+  height: var(--size);
+  background: rgba(255, 255, 255, 0.5);
+}
+.videoItem_card__3X4N8:hover .videoItem_preview__video__pDDEI {
+  opacity: 100;
+}
+.videoItem_preview__video__pDDEI {
+  transition: opacity 300ms;
+  opacity: 0;
+}
+.videoItem_card__3X4N8:hover .videoItem_card__view__preview__vA0n8 {
+  opacity: 100;
+  transform: translateY(0px);
+}
+
+
+/*# sourceMappingURL=410.9cd547fe.chunk.css.map*/
